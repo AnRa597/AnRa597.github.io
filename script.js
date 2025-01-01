@@ -9,3 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
         body.classList.toggle('sidebar-open');
     });
 });
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var content = document.querySelector('.content');
+    sidebar.classList.toggle('hidden');
+    content.classList.toggle('expanded');
+}
