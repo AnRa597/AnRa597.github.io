@@ -1,28 +1,62 @@
-/* 基本样式重置和其他样式保持不变 */
-
-/* 顶栏样式，不包括汉堡菜单图标 */
-.navbar .links {
-    display: flex;
-    justify-content: center; /* 或者使用其他布局方式，根据需要调整 */
-    /* 其他样式，如padding、margin等，可以根据需要添加 */
+/* 基本样式重置 */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-.navbar .links a {
-    /* 链接样式 */
+/* 顶栏样式 */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* 使用space-between将内容分布在两端 */
+    align-items: center; /* 垂直居中 */
+    padding: 10px 20px; /* 添加一些内边距 */
+    background-color: #333; /* 背景颜色 */
+    color: white; /* 文字颜色 */
+    position: relative; /* 确保相对定位，以便子元素可以绝对定位 */
+    z-index: 1000; /* 确保顶栏在其他内容之上 */
 }
 
 /* 汉堡菜单图标的容器样式 */
 .sidebar-toggle-container {
-    position: absolute; /* 或者使用其他定位方式，根据需要调整 */
-    top: 1em; /* 或者其他值，根据需要调整 */
-    right: 1em; /* 或者其他值，根据需要调整 */
-}
-
-/* 汉堡菜单图标的样式 */
-.sidebar-toggle-btn {
-    font-size: 1.5em; /* 或者其他值，根据需要调整 */
     cursor: pointer; /* 鼠标悬停时显示为手形 */
-    /* 其他样式，如color、background-color等，可以根据需要添加 */
 }
 
-/* 侧栏和其他相关样式保持不变 */
+.sidebar-toggle-btn {
+    font-size: 24px; /* 汉堡菜单图标的大小 */
+}
+
+/* 顶栏链接的容器样式 */
+.navbar-links {
+    display: flex; /* 使用flexbox布局 */
+    gap: 15px; /* 链接之间的间距 */
+}
+
+.navbar-links a {
+    color: white; /* 链接文字颜色 */
+    text-decoration: none; /* 去除下划线 */
+    padding: 5px 10px; /* 添加一些内边距，以便点击区域更大 */
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.navbar-links a:hover {
+    background-color: #575757; /* 链接悬停时的背景颜色 */
+}
+
+/* 侧栏样式 */
+.sidebar {
+    height: 100vh; /* 侧栏高度为视口高度 */
+    width: 250px; /* 侧栏宽度 */
+    background-color: #444; /* 侧栏背景颜色 */
+    color: white; /* 侧栏文字颜色 */
+    position: absolute; /* 绝对定位 */
+    top: 0; /* 顶部对齐 */
+    left: 0; /* 左侧对齐 */
+    transform: translateX(-100%); /* 初始状态下隐藏侧栏 */
+    transition: transform 0.3s ease; /* 添加过渡效果 */
+}
+
+/* 当checkbox被选中时，显示侧栏 */
+.sidebar-toggle:checked ~ .sidebar {
+    transform: translateX(0); /* 显示侧栏 */
+}
