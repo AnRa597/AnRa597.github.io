@@ -3,26 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>基础侧栏示例</title>
-    <!-- 引入CSS样式文件 -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- 侧栏容器 -->
-    <div class="sidebar">
-        <!-- 侧栏标题 -->
-        <h2>侧栏标题</h2>
-        <!-- 侧栏菜单项 -->
-        <ul>
-            <li><a href="#home">首页</a></li>
-            <li><a href="#about">关于</a></li>
-            <li><a href="#services">服务</a></li>
-            <li><a href="#contact">联系我们</a></li>
-        </ul>
-    </div>
     <title>Character World - 首页</title>
+    <!-- 引入Font Awesome图标库 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- 引入自定义CSS样式文件 -->
+    <link rel="stylesheet" href="styles.css">
     <style>
+        /* 在此处添加或覆盖样式 */
         * {
             margin: 0;
             padding: 0;
@@ -31,12 +18,48 @@
         }
 
         body {
-            min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            min-height: 100vh;
+            flex-direction: row; /* 修改为行方向布局以容纳侧栏 */
         }
 
-        /* Header styles */
+        /* 侧栏样式 */
+        .sidebar {
+            width: 250px; /* 侧栏宽度 */
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            position: relative; /* 改为相对定位，因为我们使用Flexbox布局 */
+            flex-shrink: 0; /* 防止侧栏在内容不足时收缩 */
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+
+ /* Header styles */
         .header {
             background-color: #333;
             color: white;
@@ -126,6 +149,20 @@
     </style>
 </head>
 <body>
+    <!-- 侧栏容器 -->
+    <div class="sidebar">
+        <!-- 侧栏标题 -->
+        <h2>侧栏标题</h2>
+        <!-- 侧栏菜单项 -->
+        <ul>
+            <li><a href="#home"><i class="fas fa-home"></i> 首页</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i> 关于</a></li>
+            <li><a href="#services"><i class="fas fa-cog"></i> 服务</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> 联系我们</a></li>
+        </ul>
+    </div>
+
+    <!-- 头部、主内容区域和页脚 -->
     <header class="header">
         <h1>Character World</h1>
         <nav class="nav">
@@ -142,6 +179,7 @@
             <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
             <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
         </section>
+        <!-- 可以添加更多内容区域 -->
     </main>
 
     <footer class="footer">
@@ -158,8 +196,6 @@
         </div>
     </footer>
 </body>
-</html>
-
 </html>
 
 </html>
