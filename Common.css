@@ -1,0 +1,21 @@
+.navbar {
+    display: flex;
+    justify-content: space-between; /* 在两端之间分配空间 */
+    align-items: center; /* 垂直居中 */
+    padding: 0 1em; /* 给导航栏一些内边距，以便内容不会紧贴边缘 */
+    /* ... 其他样式 ... */
+}
+
+.navbar .links {
+    display: flex; /* 创建一个子Flex容器来容纳链接 */
+}
+
+.navbar .links a {
+    /* ... 其他样式 ... */
+    margin: 0 0.5em; /* 给链接之间一些间距 */
+}
+
+.sidebar-toggle-btn {
+    /* 这里不需要特殊的定位或边距来调整位置，因为它已经在space-between布局的正确位置上了 */
+    /* ... 其他样式 ... */
+}
