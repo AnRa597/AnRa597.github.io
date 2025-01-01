@@ -74,3 +74,39 @@ body {
 .sidebar-open .character-world-sidebar {
     transform: translateX(0);
 }
+/* styles.css */
+.character-world-footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative; /* 确保页脚在内容下方 */
+    bottom: 0; /* 如果需要的话，但这通常不是必需的，除非你有特定的布局问题 */
+    width: 100%; /* 确保页脚覆盖整个页面宽度 */
+}
+
+.footer-content {
+    max-width: 1200px; /* 根据你的设计调整 */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content section {
+    margin-bottom: 15px;
+}
+
+.footer-content .social-media ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-content .social-media ul li {
+    margin: 0 10px;
+}
+
+.footer-content .social-media ul li img {
+    width: 30px; /* 根据你的图标大小调整 */
+    height: 30px; /* 根据你的图标大小调整 */
+}
