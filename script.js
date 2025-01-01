@@ -3,7 +3,11 @@ document.getElementById('signUp').onclick = function () {
     document.querySelector('.sign-in-container').style.display = 'none';
     document.querySelector('.overlay-container').classList.add('right-panel-active');
 };
-
+document.getElementById("registerForm").onsubmit = function() {
+    // 注册逻辑处理
+    // ...
+    window.location.href = "/home"; // 假设首页路径为/home
+};
 document.getElementById('signIn').onclick = function () {
     document.querySelector('.sign-up-container').style.display = 'none';
     document.querySelector('.sign-in-container').style.display = 'block';
