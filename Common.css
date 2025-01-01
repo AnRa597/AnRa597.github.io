@@ -610,3 +610,335 @@ body.modal-open {
         font-size: 13px;
     }
 }
+ // 基础格式
+            content = content.replace(/<1>(.*?)<\/1>/g, '<del>$1</del>');
+            content = content.replace(/<2>(.*?)<\/2>/g, '<em>$1</em>');
+            content = content.replace(/<3>(.*?)<\/3>/g, '<strong>$1</strong>');
+            content = content.replace(/<4>(.*?)<\/4>/g, '<u>$1</u>');
+
+            // 颜色格式
+            content = content.replace(/<h>(.*?)<\/h>/g, '<span style="background-color: yellow;">$1</span>');
+            content = content.replace(/<r>(.*?)<\/r>/g, '<span style="color: red;">$1</span>');
+            content = content.replace(/<b>(.*?)<\/b>/g, '<span style="color: blue;">$1</span>');
+            content = content.replace(/<g>(.*?)<\/g>/g, '<span style="color: green;">$1</span>');
+
+            // 大小格式
+            content = content.replace(/<s1>(.*?)<\/s1>/g, '<span style="font-size: small;">$1</span>');
+            content = content.replace(/<s2>(.*?)<\/s2>/g, '<span style="font-size: large;">$1</span>');
+            content = content.replace(/<s3>(.*?)<\/s3>/g, '<span style="font-size: x-large;">$1</span>');
+
+            // 特殊格式
+            content = content.replace(/<m>(.*?)<\/m>/g, '<span style="font-family: monospace;">$1</span>');
+            content = content.replace(/<w>(.*?)<\/w>/g, '<span style="letter-spacing: 2px;">$1</span>');
+            content = content.replace(/<c>(.*?)<\/c>/g, '<div style="text-align: center;">$1</div>');
+
+            return content;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            let userData = {};
+
+            // 获取用户信息并处理签到状态
+            try {
+                const userResponse = await fetch('php/lobby.php');
+                if (!userResponse.ok) {
+                    throw new Error('未登录或会话过期');
+                }
+                const userJson = await userResponse.json();
+
+                if (userJson.error) {
+                    throw new Error(userJson.error);
+                }
+
+                userData = userJson;
+
+                // 更新用户问候
+                const userGreeting = document.getElementById('userGreeting');
+                userGreeting.textContent = `你好，${userData.username} (Level ${userData.level})`;
+
+                // 显示并更新签到按钮状态
+                const signInButton = document.getElementById('signInButton');
+                signInButton.style.display = 'inline';
+
+                if (userData.has_signed_in) {
+                    signInButton.textContent = '已签到';
+                    signInButton.disabled = true;
+                } else {
+                    signInButton.textContent = '签到';
+                    signInButton.disabled = false;
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                const authLink = document.getElementById('authLink');
+                authLink.textContent = '登录';
+                authLink.href = 'index.html';
+
+                const signInButton = document.getElementById('signInButton');
+                signInButton.style.display = 'none';
+            }
+
+            // 获取统计信息和最新帖子并展示
+            try {
+                const infoResponse = await fetch('php/lobby_information.php');
+                if (!infoResponse.ok) {
+                    throw new Error('无法获取统计信息');
+                }
+                const infoData = await infoResponse.json();
+
+                if (infoData.error) {
+                    throw new Error(infoData.error);
+                }
+
+                // 更新统计数字
+                document.getElementById('total_posts').textContent = infoData.total_posts;
+                document.getElementById('archivesB_room_posts').textContent = infoData.archivesB_room_posts;
+                document.getElementById('active_projects').textContent = infoData.active_projects;
+                document.getElementById('researchers').textContent = infoData.researchers;
+
+                // 更新"客服部新发现"帖子
+                const discoveryContainer = document.getElementById('archivesB_room_posts_container');
+                discoveryContainer.innerHTML = ''; // 清空现有内容
+
+                infoData.latest_archivesB_room_posts.forEach(post => {
+                    if (post.project_id && post.preview) {
+                        const postElement = document.createElement('div');
+                        postElement.className = 'content-item content-formatted';
+                        postElement.innerHTML = `
+                            <a href="archivesB_data.php?project_id=${encodeURIComponent(post.project_id)}">
+                                <h4>【${parseCustomTags(post.project_id)}】${parseCustomTags(post.preview)}</h4>
+                                <p>创作者：${parseCustomTags(post.username)}</p>
+                                <div class="notice-date">${post.create_time}</div>
+                            </a>
+                        `;
+                        discoveryContainer.appendChild(postElement);
+                    } else {
+                        // 如果没有内容，显示"当前内容未解密"并添加占位符
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'content-item placeholder';
+                        placeholder.innerHTML = `
+                            <a href="archivesB_room.html">
+                                <h4><em>当前内容未解密</em></h4>
+                                <p><em>当前内容未解密</em></p>
+                                <div class="notice-date"></div>
+                                <div class="additional-placeholder">----------</div>
+                            </a>
+                        `;
+                        discoveryContainer.appendChild(placeholder);
+                    }
+                });
+
+                // 如果客服部帖子少于3条，补充占位符
+                for (let i = infoData.latest_archivesB_room_posts.length; i < 3; i++) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'content-item placeholder';
+                    placeholder.innerHTML = `
+                        <a href="archivesB_room.html">
+                            <h4><em>当前内容未解密</em></h4>
+                            <p><em>当前内容未解密</em></p>
+                            <div class="notice-date"></div>
+                            <div class="additional-placeholder">----------</div>
+                        </a>
+                    `;
+                    discoveryContainer.appendChild(placeholder);
+                }
+
+                // 更新"新研究员投稿"帖子
+                const submissionContainer = document.getElementById('archives_room_posts_container');
+                submissionContainer.innerHTML = ''; // 清空现有内容
+
+                infoData.latest_archives_room_posts.forEach(post => {
+                    if (post.project_id && post.preview) {
+                        const postElement = document.createElement('div');
+                        postElement.className = 'content-item content-formatted';
+                        postElement.innerHTML = `
+                            <a href="archives_data.php?project_id=${encodeURIComponent(post.project_id)}">
+                                <h4>【${parseCustomTags(post.project_id)}】${parseCustomTags(post.preview)}</h4>
+                                <p>研究员: ${parseCustomTags(post.username)}</p>
+                                <div class="notice-date">${post.create_time}</div>
+                            </a>
+                        `;
+                        submissionContainer.appendChild(postElement);
+                    } else {
+                        // 如果没有内容，显示占位符
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'content-item placeholder';
+                        placeholder.innerHTML = `
+                            <a href="archives_room.html">
+                                <h4><em>当前内容未解密</em></h4>
+                                <p><em>当前内容未解密</em></p>
+                                <div class="notice-date"></div>
+                                <div class="additional-placeholder">----------</div>
+                            </a>
+                        `;
+                        submissionContainer.appendChild(placeholder);
+                    }
+                });
+
+                // 如果研究员投稿少于3条，补充占位符
+                for (let i = infoData.latest_archives_room_posts.length; i < 3; i++) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'content-item placeholder';
+                    placeholder.innerHTML = `
+                        <a href="archives_room.html">
+                            <h4><em>当前内容未解密</em></h4>
+                            <p><em>当前内容未解密</em></p>
+                            <div class="notice-date"></div>
+                            <div class="additional-placeholder">----------</div>
+                        </a>
+                    `;
+                    submissionContainer.appendChild(placeholder);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+            // 获取待修补档案数据
+            try {
+                const waitResponse = await fetch('php/wait.php');
+                if (!waitResponse.ok) {
+                    throw new Error('无法获取待修补档案数据');
+                }
+                const waitData = await waitResponse.json();
+
+                // 更新“待修补[研究员]档案”卡片
+                const pendingResearcherArchivesContainer = document.getElementById('pending_researcher_archives_container');
+                pendingResearcherArchivesContainer.innerHTML = ''; // 清空现有内容
+
+                waitData.pending_researcher_archives.forEach(archive => {
+                    const archiveElement = document.createElement('div');
+                    archiveElement.className = 'content-item content-formatted';
+                    archiveElement.innerHTML = `
+                        <a href="edit.php?project_id=${encodeURIComponent(archive.project_id)}">
+                            <h4>档案编号${archive.project_id}</h4>
+                            <p>状态: ${archive.status}</p>
+                            <div class="notice-date">${archive.create_time}</div>
+                        </a>
+                    `;
+                    pendingResearcherArchivesContainer.appendChild(archiveElement);
+                });
+
+                // 如果待修补[研究员]档案少于3条，补充占位符
+                for (let i = waitData.pending_researcher_archives.length; i < 3; i++) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'content-item placeholder';
+                    placeholder.innerHTML = `
+                        <a href="archives_room.html">
+                            <h4><em>暂无待修补档案</em></h4>
+                            <p><em>暂无待修补档案</em></p>
+                            <div class="notice-date"></div>
+                            <div class="additional-placeholder">----------</div>
+                        </a>
+                    `;
+                    pendingResearcherArchivesContainer.appendChild(placeholder);
+                }
+
+                // 更新“待修补[客服部]档案”卡片
+                const pendingCustomerServiceArchivesContainer = document.getElementById('pending_customer_service_archives_container');
+                pendingCustomerServiceArchivesContainer.innerHTML = ''; // 清空现有内容
+
+                waitData.pending_customer_service_archives.forEach(archive => {
+                    const archiveElement = document.createElement('div');
+                    archiveElement.className = 'content-item content-formatted';
+                    archiveElement.innerHTML = `
+                        <a href="editB.php?project_id=${encodeURIComponent(archive.project_id)}">
+                            <h4>档案编号${archive.project_id}</h4>
+                            <p>状态: ${archive.status}</p>
+                            <div class="notice-date">${archive.create_time}</div>
+                        </a>
+                    `;
+                    pendingCustomerServiceArchivesContainer.appendChild(archiveElement);
+                });
+
+                // 如果待修补[客服部]档案少于3条，补充占位符
+                for (let i = waitData.pending_customer_service_archives.length; i < 3; i++) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'content-item placeholder';
+                    placeholder.innerHTML = `
+                        <a href="archives_room.html">
+                            <h4><em>暂无待修补档案</em></h4>
+                            <p><em>暂无待修补档案</em></p>
+                            <div class="notice-date"></div>
+                            <div class="additional-placeholder">----------</div>
+                        </a>
+                    `;
+                    pendingCustomerServiceArchivesContainer.appendChild(placeholder);
+                }
+
+            } catch (error) {
+                console.error('Error fetching wait.php data:', error);
+            }
+
+            // 处理签到按钮点击事件
+            const signInButton = document.getElementById('signInButton');
+            if (signInButton) {
+                signInButton.addEventListener('click', async () => {
+                    try {
+                        signInButton.disabled = true;
+                        const signInResponse = await fetch('php/sign_in.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        const signInData = await signInResponse.json();
+
+                        if (signInData.status === 'success') {
+                            alert(signInData.message);
+                            signInButton.textContent = '已签到';
+                            signInButton.disabled = true;
+
+                            // 更新用户等级显示
+                            const userGreeting = document.getElementById('userGreeting');
+                            userGreeting.textContent = `你好，${userData.username} (Level ${userData.level})`;
+                        } else {
+                            alert(signInData.message);
+                            if (signInData.status === 'already_signed_in') {
+                                signInButton.textContent = '已签到';
+                                signInButton.disabled = true;
+                            } else {
+                                signInButton.disabled = false;
+                            }
+                        }
+                    } catch (error) {
+                        console.error('签到错误:', error);
+                        alert('签到失败，请稍后再试。');
+                        signInButton.disabled = false;
+                    }
+                });
+            }
+
+            // 导航栏收起/展开功能
+            const navbarToggle = document.getElementById('navbarToggle');
+            const navLeft = document.querySelector('.nav-left');
+            const navRight = document.querySelector('.nav-right');
+
+            navbarToggle.addEventListener('click', () => {
+                const isShown = navLeft.classList.contains('show') && navRight.classList.contains('show');
+                if (isShown) {
+                    // 隐藏导航栏
+                    navLeft.classList.remove('show');
+                    navRight.classList.remove('show');
+                    navbarToggle.textContent = '展开';
+                } else {
+                    // 显示导航栏
+                    navLeft.classList.add('show');
+                    navRight.classList.add('show');
+                    navbarToggle.textContent = '隐藏';
+                }
+            });
+
+            // 为“火塘”链接添加点击事件监听
+            document.getElementById('huotangLink').addEventListener('click', function(event) {
+                event.preventDefault(); // 阻止默认链接跳转行为
+                openHuotangModal();
+            });
+
+            // 点击模态遮罩层关闭弹窗
+            document.getElementById('huotangModal').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeHuotangModal();
+                }
+            });
+        });
