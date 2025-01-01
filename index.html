@@ -6,54 +6,9 @@
     <title>Character World - 首页</title>
     <!-- 引入Font Awesome图标库 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- 引入自定义CSS样式文件 -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- 引入自定义CSS样式文件（如果有的话，这里应该是一个外部链接） -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
     <style>
-        .sidebar {
-             /* ... (其他样式保持不变) ... */
-            transition: transform 0.3s ease-in-out;
-        }
- 
-        /* 当侧栏隐藏时，将其移出视图 */
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
- 
-        /* 修改主内容区域的样式，以便在侧栏隐藏时占据整个宽度 */
-        .main-content-wrapper {
-            display: flex;
-            flex: 1;
-            transition: margin-left 0.3s ease-in-out;
-        }
- 
-        .sidebar.hidden ~ .main-content-wrapper {
-            margin-left: 0;
-        }
- 
-        /* 为侧栏按钮添加一些样式（可选） */
-        .toggle-button {
-            background-color: #444;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            font-size: 24px;
-        }
- 
-        /* 由于我们使用了 ~ 选择器，需要确保侧栏在main-content-wrapper之前 */
-    </style>
-</head>
-<body>
-    <div class="sidebar" id="sidebar">
-        <!-- 将按钮移动到侧栏内部，并更新其样式（可选） -->
-        <button class="toggle-button" onclick="toggleSidebar()">☰ 菜单</button>
-        <ul>
-            <!-- ... (链接列表保持不变) ... -->
-        </ul>
-    </div>
-        /* 在此处添加或覆盖样式 */
         * {
             margin: 0;
             padding: 0;
@@ -62,48 +17,12 @@
         }
 
         body {
-            display: flex;
             min-height: 100vh;
-            flex-direction: row; /* 修改为行方向布局以容纳侧栏 */
+            display: flex;
+            flex-direction: column;
         }
 
-        /* 侧栏样式 */
-        .sidebar {
-            width: 250px; /* 侧栏宽度 */
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            position: relative; /* 改为相对定位，因为我们使用Flexbox布局 */
-            flex-shrink: 0; /* 防止侧栏在内容不足时收缩 */
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: white;
-            display: block;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .sidebar ul li a:hover {
-            background-color: #555;
-        }
-
- /* Header styles */
+        /* Header styles */
         .header {
             background-color: #333;
             color: white;
@@ -190,11 +109,78 @@
         .social-links a:hover {
             color: #ddd;
         }
+        .sidebar {
+             /* ... (其他样式保持不变) ... */
+            transition: transform 0.3s ease-in-out;
+        }
+ 
+        /* 当侧栏隐藏时，将其移出视图 */
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+ 
+        /* 修改主内容区域的样式，以便在侧栏隐藏时占据整个宽度 */
+        .main-content-wrapper {
+            display: flex;
+            flex: 1;
+            transition: margin-left 0.3s ease-in-out;
+        }
+ 
+        .sidebar.hidden ~ .main-content-wrapper {
+            margin-left: 0;
+        }
+ 
+        /* 为侧栏按钮添加一些样式（可选） */
+        .toggle-button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            font-size: 24px;
+        }
+ 
+        /* 由于我们使用了 ~ 选择器，需要确保侧栏在main-content-wrapper之前 */
     </style>
 </head>
 <body>
     <div class="sidebar" id="sidebar">
-        <button class="toggle-button" onclick="toggleSidebar()">☰</button>
+        <!-- 将按钮移动到侧栏内部，并更新其样式（可选） -->
+        <button class="toggle-button" onclick="toggleSidebar()">☰ 菜单</button>
+        <ul>
+            <!-- ... (链接列表保持不变) ... -->
+        </ul>
+    </div>
+        /* 在此处添加或覆盖样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: row; /* 修改为行方向布局以容纳侧栏 */
+        }
+
+        /* 侧栏样式 */
+        .sidebar {
+            width: 250px; /* 侧栏宽度 */
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            position: relative; /* 改为相对定位，因为我们使用Flexbox布局 */
+            flex-shrink: 0; /* 防止侧栏在内容不足时收缩 */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <button class="toggle-button" onclick="toggleSidebar()">☰ 菜单</button>
         <ul>
             <li><a href="#">首页</a></li>
             <li><a href="#">关于我们</a></li>
@@ -202,51 +188,43 @@
             <li><a href="#">联系我们</a></li>
         </ul>
     </div>
-    <!-- 头部、主内容区域和页脚 -->
-    <header class="header">
-        <h1>Character World</h1>
-        <nav class="nav">
-            <a href="#"><i class="fas fa-home"></i> 首页</a>
-            <a href="#"><i class="fas fa-users"></i> 人物设定</a>
-            <a href="#"><i class="fas fa-globe"></i> 世界观介绍</a>
-            <a href="#"><i class="fas fa-info-circle"></i> 关于我们</a>
-        </nav>
-    </header>
-
-    <main class="main-content">
-        <section class="welcome">
-            <h2>欢迎来到 Character World</h2>
-            <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
-            <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
-        </section>
-        <!-- 可以添加更多内容区域 -->
-    </main>
-
-    <footer class="footer">
-        <p>© 2023 Character World. 保留所有权利。</p>
-        <div class="contact">
-            <p>联系方式: <a href="mailto:info@character-world.com" style="color: white;">info@character-world.com</a></p>
-            <p>电话: +123-456-7890</p>
-        </div>
-        <p>关注我们:</p>
-        <div class="social-links">
-            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        </div>
-    </footer>
-</body>
-    
+    <div class="main-content-wrapper"> <!-- 添加了这个包裹主内容的div -->
+        <header class="header">
+            <h1>Character World</h1>
+            <nav class="nav">
+                <a href="#"><i class="fas fa-home"></i> 首页</a>
+                <a href="#"><i class="fas fa-users"></i> 人物设定</a>
+                <a href="#"><i class="fas fa-globe"></i> 世界观介绍</a>
+                <a href="#"><i class="fas fa-info-circle"></i> 关于我们</a>
+            </nav>
+        </header>
+        <main class="main-content">
+            <section class="welcome">
+                <h2>欢迎来到 Character World</h2>
+                <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
+                <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
+            </section>
+            <!-- 可以添加更多内容区域 -->
+        </main>
+        <footer class="footer">
+            <p>© 2023 Character World. 保留所有权利。</p>
+            <div class="contact">
+                <p>联系方式: <a href="mailto:info@character-world.com" style="color: white;">info@character-world.com</a></p>
+                <p>电话: +123-456-7890</p>
+            </div>
+            <p>关注我们:</p>
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
         </footer>
-    </div>
- 
+    </div> <!-- main-content-wrapper的闭合标签 -->
     <script>
         function toggleSidebar() {
             var sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('hidden');
         }
     </script>
-     </div>
-    </footer>
 </body>
 </html>
