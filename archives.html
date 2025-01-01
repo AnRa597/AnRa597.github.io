@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异常管理局 - 档案模板</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/archives.css?v=0.24">
+</head>
+<body>
+    <!-- 条款弹窗 -->
+	<div id="termsDialog" class="terms-dialog-overlay" style="display: none;">
+		<div class="terms-dialog">
+			<div class="terms-title">档案创作须知</div>
+			<div class="terms-content">
+				<div class="terms-section rules">
+					<div class="terms-subtitle">请仔细阅读并遵守以下规定：</div>
+					<ul class="terms-list">
+					<li>欢迎来到该网站并感谢您的投稿，下面有一些简单的要求需要您遵守：</li>
+					<li>由于服务器原因，图片大小限制为100kb，若需上传图片可将图片进行压缩</li>
+					<li>档案提交后，不可再次修改图片或是上传图片</li>
+					<li>禁止发布任何涉及时政、暴力、色情、歧视、赌博、外链等不当内容</li>
+					<li>请确保内容符合规范，并基于异常管理局的世界观</li>
+					<li>尊重他人隐私，不擅自发布他人个人信息，不得教唆、引战等</li>
+					<li>鼓励高质量的创作，避免简单复制或低质量投稿</li>
+					</ul>
+				</div>
+				<div class="terms-section consequences">
+					<div class="terms-subtitle">温馨提示：</div>
+					<ul class="terms-list">
+					<li>在这里每提交一份“异常档案”，便可以获得100经验值</li>
+					<li>但违反上述规定的内容将被删除并扣除创作者在此档案获得的经验值的双倍</li>
+					<li>多次或严重违规者将被限制部分权限或禁止登录</li>
+					<li>异常管理局世界观仅供虚构创作，禁止用于现实世界的不当行为</li>
+					<li>感谢大家的理解与支持</li>
+					</ul>
+				</div>
+			</div>
+			<div class="terms-buttons">
+				<button class="terms-button decline" onclick="declineTerms()">不同意并返回</button>
+				<button class="terms-button accept" onclick="acceptTerms()">我已阅读并同意遵守</button>
+			</div>
+		</div>
+	</div>
+
+    <!-- 顶部导航栏 -->
+    <div class="nav-bar">
+        <a href="php/user.php" class="nav-user" id="navUser">加载中...</a>
+        <div class="nav-links">
+            <a href="lobby.html" class="nav-link">大厅</a>
+            <a href="archives_room.html" class="nav-link">档案室</a>
+            <a href="#" class="nav-link">客服部</a>
+            <a href="#" class="nav-link">特别行动小组</a>
+        </div>
+    </div>
+
+    <!-- 档案管理 -->
+    <div class="document">
+        <form action="php/archives.php" method="POST" enctype="multipart/form-data">
+            <div class="header">
+                <h1>异常管理局</h1>
+                <div class="level-badge">等级：待定</div>
+            </div>
+
+            <!-- 项目编号 -->
+            <div class="project-id">
+                项目编号：<span id="nextProjectId">加载中...</span>
+                <input type="hidden" name="project_id" id="projectIdInput">
+            </div>
+
+            <!-- 基本信息 -->
+            <div class="section-title">基本信息</div>
+            <div class="info-grid">
+                <span>研究员：</span>
+                <input type="text" name="username" required>
+                <input type="hidden" name="user_id" id="userIdInput">
+            </div>
+
+            <!-- 等级选择 -->
+            <div class="level-selectors">
+                <div class="level-select">
+                    <span>威胁等级：</span>
+                    <select id="threatLevel" name="threat_level" required>
+                        <option value="0">0级 - 无威胁</option>
+                        <option value="1">1级 - 低威胁</option>
+                        <option value="2">2级 - 警戒</option>
+                        <option value="3">3级 - 危险</option>
+                        <option value="4">4级 - 高危</option>
+                        <option value="5">5级 - 灾难</option>
+                    </select>
+                </div>
+                <div class="level-select">
+                    <span>应对等级：</span>
+                    <select id="responseLevel" name="response_level" required>
+                        <option value="E">E级 - 基础处理</option>
+                        <option value="D">D级 - 初级处理</option>
+                        <option value="C">C级 - 中级处理</option>
+                        <option value="B">B级 - 高级处理</option>
+                        <option value="A">A级 - 顶级处理</option>
+                        <option value="S">S级 - 特殊处理</option>
+                    </select>
+                </div>
+                <div class="level-select">
+                    <span>状态：</span>
+                    <select id="status" name="status" required>
+                        <option value="ongoing">进行中</option>
+                        <option value="completed">已完结</option>
+                    </select>
+                </div>
+                <input type="hidden" name="project_level" id="projectLevel">
+            </div>
+
+            <!-- 图片上传 -->
+            <div class="image-section">
+                <div class="image-placeholder" id="imagePreview">点击上传图片</div>
+                <div id="thumbnailContainer" style="margin-top: 10px;"></div>
+                <input type="file" id="imageInput" name="image" accept="image/*" style="display: none;">
+            </div>
+
+            <div class="section-title">项目描述</div>
+            <div class="formatting-tips">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    基础格式：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;1&gt;内容&lt;/1&gt; 添加删除线<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;2&gt;内容&lt;/2&gt; 添加倾斜<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;3&gt;内容&lt;/3&gt; 添加粗体<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;4&gt;内容&lt;/4&gt; 添加下划线<br>
+                    <br>
+                    颜色格式：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;h&gt;内容&lt;/h&gt; 添加黄色高亮<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;r&gt;内容&lt;/r&gt; 添加红色文字<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;b&gt;内容&lt;/b&gt; 添加蓝色文字<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;g&gt;内容&lt;/g&gt; 添加绿色文字
+                </div>
+                <div>
+                    大小格式：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;s1&gt;内容&lt;/s1&gt; 使用小号字体<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;s2&gt;内容&lt;/s2&gt; 使用大号字体<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;s3&gt;内容&lt;/s3&gt; 使用更大号字体<br>
+                    <br>
+                    特殊格式：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;m&gt;内容&lt;/m&gt; 使用等宽字体<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;w&gt;内容&lt;/w&gt; 添加字间距<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;使用 &lt;c&gt;内容&lt;/c&gt; 居中显示
+                </div>
+            </div>
+            </div>
+            <textarea class="content-area" id="mainContent" name="maintext" required placeholder="请输入项目信息..."></textarea>
+            <div class="preview-area" id="mainPreview"></div>
+            
+            <div class="section-title">附加信息</div>
+            <textarea class="content-area" id="additionalContent" name="text" placeholder="请输入附加信息..."></textarea>
+            <div class="preview-area" id="additionalPreview"></div>
+
+            <button type="submit" class="submit-btn">提交档案</button>
+        </form>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            异常管理局档案管理系统 - 机密文件<br>
+            未经授权私自传播将承担相应责任
+        </div>
+    </div>
+
+    <!-- 引入外部JS库 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/archives.js?v=0.4"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8fb0de4c5b90ebeb","version":"2024.10.5","r":1,"token":"02a3b03e506a413db7b1c46f10cc6120","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>
