@@ -3,88 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>世界观与OC设定Wiki</title>
+    <title>网站首页</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* 基本样式重置 */
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
         }
-        header {
+
+        /* 顶栏样式 */
+        .navbar {
             background-color: #333;
             color: #fff;
             padding: 1em 0;
             text-align: center;
         }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 2em 0;
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1em;
+            padding: 0.5em 1em;
+            transition: background-color 0.3s;
         }
-        .section {
-            margin-bottom: 2em;
-            background-color: #fff;
-            padding: 1em;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .navbar a:hover {
+            background-color: #575757;
         }
-        .section h2 {
+
+        /* 主内容区域样式 */
+        .main-content {
+            padding: 2em;
+            text-align: center;
+        }
+        .main-content h1 {
             margin-top: 0;
-        }
-        .latest-updates, .popular-worldviews {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1em;
-        }
-        .update-item, .worldview-item {
-            flex: 1 1 calc(33.333% - 1em);
-            box-sizing: border-box;
-        }
-        @media (max-width: 768px) {
-            .update-item, .worldview-item {
-                flex: 1 1 100%;
-            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>世界观与OC设定Wiki</h1>
-    </header>
-    <div class="container">
-        <section class="section" id="introduction">
-            <h2>网站总体介绍</h2>
-            <p>欢迎来到我们的世界观与OC设定Wiki，这里汇聚了丰富的原创角色和世界观设定，供你探索和创作。</p>
-        </section>
-        <section class="section" id="latest-updates">
-            <h2>最新更新</h2>
-            <div class="latest-updates">
-                <div class="update-item">
-                    <h3>更新标题1</h3>
-                    <p>这里是关于最新更新的简短描述。</p>
-                </div>
-                <div class="update-item">
-                    <h3>更新标题2</h3>
-                    <p>这里是另一个更新的简短描述。</p>
-                </div>
-                <!-- 可以根据需要添加更多更新项 -->
-            </div>
-        </section>
-        <section class="section" id="popular-worldviews">
-            <h2>热门世界观或OC设定</h2>
-            <div class="popular-worldviews">
-                <div class="worldview-item">
-                    <h3>世界观/OC标题1</h3>
-                    <p>这里是关于热门世界观或OC设定的简短描述。</p>
-                </div>
-                <div class="worldview-item">
-                    <h3>世界观/OC标题2</h3>
-                    <p>这里是另一个热门世界观或OC设定的简短描述。</p>
-                </div>
-                <!-- 可以根据需要添加更多世界观/OC设定项 -->
-            </div>
-        </section>
-        <!-- 可以根据需要添加更多板块 -->
+    <!-- 顶栏 -->
+    <div class="navbar">
+        <a href="#home">首页</a>
+        <a href="#about">关于我们</a>
+        <a href="#services">服务</a>
+        <a href="#contact">联系我们</a>
+        <!-- 可以添加更多链接，如登录、注册等 -->
     </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <h1>欢迎来到我们的网站</h1>
+        <p>这里是网站首页的内容区域。你可以在这里放置欢迎信息、最新动态、特色服务等。</p>
+        <!-- 可以根据需要添加更多内容，如图片、视频、表单等 -->
+    </div>
+
+    <!-- 可以在这里添加更多的页面内容或脚本 -->
 </body>
 </html>
