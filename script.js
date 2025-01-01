@@ -1,17 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const sidebarToggle = document.querySelector('.sidebar-toggle');
-    const sidebarContent = document.querySelector('.sidebar-content');
+// script.js
 
-    sidebarToggle.addEventListener('click', function () {
-        sidebarContent.style.height = sidebarContent.scrollHeight + 'px';
-        sidebarToggle.style.display = 'none';
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    var sidebarToggle = document.querySelector('.sidebar-toggle');
+    var sidebar = document.querySelector('.character-world-sidebar');
+    var body = document.body;
 
-    // Close the sidebar if clicked outside the sidebar content (on smaller screens)
-    window.addEventListener('click', function (event) {
-        if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
-            sidebarContent.style.height = '0px';
-            sidebarToggle.style.display = 'block';
-        }
+    sidebarToggle.addEventListener('click', function() {
+        body.classList.toggle('sidebar-open');
     });
 });
