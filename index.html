@@ -1,13 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title>
+    <title>Character World - 首页</title>
+    <link rel="stylesheet" href="Common.css">
 </head>
 <body>
-    <h3>测试一下</h3>
-    <a href="https://space.bilibili.com/3546610407574282">这是我的哔哩哔哩主页</a>
+    <header class="character-world-header">
+        <h1>Character World</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html">人物设定</a></li>
+                <li><a href="world.html">世界观介绍</a></li>
+                <li><a href="about.html">关于我们</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <aside class="character-world-sidebar">
+        <button class="sidebar-toggle">☰ 菜单</button>
+        <nav class="sidebar-content">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html">人物设定</a></li>
+                <li><a href="world.html">世界观介绍</a></li>
+                <li><a href="about.html">关于我们</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <main class="character-world-main-content">
+        <h2>欢迎来到 Character World</h2>
+        <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
+        <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
