@@ -87,19 +87,20 @@
 </head>
 <body>
 <!-- 隐藏的checkbox用于控制侧栏的显示/隐藏 -->
-<input type="checkbox" id="sidebarToggle">
+<input type="checkbox" id="sidebarToggle" class="sidebar-toggle">
 
 <!-- 顶栏 -->
 <div class="navbar">
-    <div class="links">
+    <!-- 汉堡菜单图标的容器 -->
+    <div class="sidebar-toggle-container">
+        <label for="sidebarToggle" class="sidebar-toggle-btn">☰</label>
+    </div>
+    <!-- 顶栏链接的容器，使用flexbox布局将其移动到右边 -->
+    <div class="navbar-links">
         <a href="#home">首页</a>
         <a href="#about">关于我们</a>
         <a href="#services">服务</a>
         <a href="#contact">联系我们</a>
-    </div>
-    <!-- 将汉堡菜单图标放在一个单独的div或span中，以便进行样式化 -->
-    <div class="sidebar-toggle-container">
-        <label for="sidebarToggle" class="sidebar-toggle-btn">☰</label>
     </div>
 </div>
 
