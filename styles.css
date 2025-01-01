@@ -208,3 +208,51 @@ body {
 .content.expanded {
     margin-left: 0;
 }
+.content{
+    background-color: #e7e7e7;
+    min-height: 100vh;
+}
+ 
+.menu-box{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 0.5px;
+    /*设置字母之间的间距*/
+    font-weight: 600;
+    position: relative;
+    width: fit-content;
+    /* fit-content 作用: 根据内容自适应宽度 可以结合margin-auto 来实现居中*/
+    min-height: 100vh;
+    /*浏览器可见视口【高度】的百分比（1vh代表视窗【高度】的1%）*/
+    padding: 6px 12px;
+    box-sizing: border-box;
+    /*border-box是指将边框border和内边距padding在现有元素的宽度和高度内设置*/
+    /*background-color: var(--color-menu-bg);*/
+    background-color: var(--color-zidingyi);
+}
+ 
+.menu-box>input#menu-btn:checked+label>i{
+    transform: rotate(180deg);
+}
+ 
+ 
+ 
+/*
+A+B{}这个+是选择相邻兄弟，称作“相邻兄弟选择器”，如果需要选择紧接在另一个元素后的元素，而且二者有相同的父元素，
+可以使用相邻兄弟选择器，例如，如果要增加紧接在 h1 元素后出现的段落的上边距，可以这样写：
+　　h1 + p {margin-top:50px;}
+　　这个选择器读作：“选择紧接在 h1 元素后出现的段落，h1 和 p 元素拥有共同的父元素”。｝；
+*/
+ 
+.menu{
+    font-size: 18px;
+    width: 250px;
+    min-height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    transition: width var(--transition-menu-time);
+    color: var(--font-color-mi);
+}
+.menu-box input[type='checkbox'] {
+    display: none;
+    /*隐藏原生的多选框*/
+}
