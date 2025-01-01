@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- 顶栏 -->
     <header class="header">
         <div class="header-container">
             <h1 class="site-name">我的网站</h1>
@@ -20,6 +21,8 @@
             </div>
         </div>
     </header>
+
+    <!-- 主内容区域 -->
     <main class="main-content">
         <section class="latest-settings">
             <h2>最新的设定条目</h2>
@@ -31,9 +34,8 @@
                 <h3>设定名称 2</h3>
                 <p>这是另一个最新的设定条目的描述。</p>
             </div>
-            <!-- 可以根据需要添加更多设定条目 -->
         </section>
- 
+
         <section class="popular-articles">
             <h2>热门文章</h2>
             <article class="article-item">
@@ -44,49 +46,41 @@
                 <h3>文章标题 2</h3>
                 <p>这是另一篇热门文章的摘要。</p>
             </article>
-            <!-- 可以根据需要添加更多文章 -->
         </section>
- 
-        <section class="recommended-content">
-            <h2>推荐内容</h2>
-            <div class="recommended-item">
-                <h3>推荐标题 1</h3>
-                <p>这是推荐内容的简短描述。</p>
+    </main>
+
+    <!-- 侧栏 -->
+    <aside class="sidebar">
+        <section class="user-info">
+            <h3>用户信息</h3>
+            <p>欢迎, <strong>用户名</strong>!</p>
+            <p><a href="#">登录</a> | <a href="#">注册</a> | <a href="#">个人中心</a></p>
+            <!-- 注意：这里应该根据用户登录状态显示不同的信息 -->
+        </section>
+
+        <section class="advertisement">
+            <h3>广告</h3>
+            <div class="ad-banner">
+                <!-- 这里可以放置广告图片或代码 -->
+                <img src="ad-banner.jpg" alt="广告横幅">
             </div>
-            <div class="recommended-item">
-                <h3>推荐标题 2</h3>
-                <p>这是另一个推荐内容的描述。</p>
-            </div>
- <section class="user-info">
-                <h3>用户信息</h3>
-                <p>欢迎, <strong>用户名</strong>!</p>
-                <p><a href="#">登录</a> | <a href="#">注册</a> | <a href="#">个人中心</a></p>
-                <!-- 注意：这里应该根据用户登录状态显示不同的信息 -->
-            </section>
- 
-            <section class="advertisement">
-                <h3>广告</h3>
-                <div class="ad-banner">
-                    <!-- 这里可以放置广告图片或代码 -->
-                    <img src="ad-banner.jpg" alt="广告横幅">
-                </div>
-            </section>
-        </aside>
- 
-        <main class="main-content">
-             <footer class="footer">
+        </section>
+    </aside>
+
+    <!-- 底栏 -->
+    <footer class="footer">
         <div class="footer-content">
             <section class="copyright">
                 <p>&copy; 2023 我的网站. 版权所有.</p>
             </section>
- 
+
             <section class="contact-info">
                 <h4>联系方式</h4>
                 <p>邮箱: <a href="mailto:example@example.com">example@example.com</a></p>
                 <p>电话: <a href="tel:+1234567890">+123 456 7890</a></p>
                 <!-- 可以添加更多联系方式，如地址等 -->
             </section>
- 
+
             <section class="social-media">
                 <h4>社交媒体</h4>
                 <ul>
