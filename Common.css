@@ -1,21 +1,28 @@
-.navbar {
-    display: flex;
-    justify-content: space-between; /* 在两端之间分配空间 */
-    align-items: center; /* 垂直居中 */
-    padding: 0 1em; /* 给导航栏一些内边距，以便内容不会紧贴边缘 */
-    /* ... 其他样式 ... */
-}
+/* 基本样式重置和其他样式保持不变 */
 
+/* 顶栏样式，不包括汉堡菜单图标 */
 .navbar .links {
-    display: flex; /* 创建一个子Flex容器来容纳链接 */
+    display: flex;
+    justify-content: center; /* 或者使用其他布局方式，根据需要调整 */
+    /* 其他样式，如padding、margin等，可以根据需要添加 */
 }
 
 .navbar .links a {
-    /* ... 其他样式 ... */
-    margin: 0 0.5em; /* 给链接之间一些间距 */
+    /* 链接样式 */
 }
 
-.sidebar-toggle-btn {
-    /* 这里不需要特殊的定位或边距来调整位置，因为它已经在space-between布局的正确位置上了 */
-    /* ... 其他样式 ... */
+/* 汉堡菜单图标的容器样式 */
+.sidebar-toggle-container {
+    position: absolute; /* 或者使用其他定位方式，根据需要调整 */
+    top: 1em; /* 或者其他值，根据需要调整 */
+    right: 1em; /* 或者其他值，根据需要调整 */
 }
+
+/* 汉堡菜单图标的样式 */
+.sidebar-toggle-btn {
+    font-size: 1.5em; /* 或者其他值，根据需要调整 */
+    cursor: pointer; /* 鼠标悬停时显示为手形 */
+    /* 其他样式，如color、background-color等，可以根据需要添加 */
+}
+
+/* 侧栏和其他相关样式保持不变 */
