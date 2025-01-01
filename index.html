@@ -9,6 +9,74 @@
     <!-- 引入自定义CSS样式文件 -->
     <link rel="stylesheet" href="styles.css">
     <style>
+        .sidebar {
+             /* ... (其他样式保持不变) ... */
+            transition: transform 0.3s ease-in-out;
+        }
+ 
+        /* 当侧栏隐藏时，将其移出视图 */
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+ 
+        /* 修改主内容区域的样式，以便在侧栏隐藏时占据整个宽度 */
+        .main-content-wrapper {
+            display: flex;
+            flex: 1;
+            transition: margin-left 0.3s ease-in-out;
+        }
+ 
+        .sidebar.hidden ~ .main-content-wrapper {
+            margin-left: 0;
+        }
+ 
+        /* 为侧栏按钮添加一些样式（可选） */
+        .toggle-button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            font-size: 24px;
+        }
+ 
+        /* 由于我们使用了 ~ 选择器，需要确保侧栏在main-content-wrapper之前 */
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <!-- 将按钮移动到侧栏内部，并更新其样式（可选） -->
+        <button class="toggle-button" onclick="toggleSidebar()">☰ 菜单</button>
+        <ul>
+            <!-- ... (链接列表保持不变) ... -->
+        </ul>
+    </div>
+ 
+    <!-- 包裹主内容区域，以便我们可以控制其边距 -->
+    <div class="main-content-wrapper">
+        <header class="header">
+            <!-- ... (头部内容保持不变) ... -->
+        </header>
+ 
+        <main class="main-content">
+            <!-- ... (主内容区域保持不变) ... -->
+        </main>
+ 
+        <footer class="footer">
+            <!-- ... (页脚内容保持不变) ... -->
+        </footer>
+    </div>
+ 
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
         /* 在此处添加或覆盖样式 */
         * {
             margin: 0;
