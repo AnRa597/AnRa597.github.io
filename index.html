@@ -86,10 +86,10 @@
     </style>
 </head>
 <body>
-    <!-- 隐藏的checkbox用于控制侧栏的显示/隐藏 -->
-    <input type="checkbox" id="sidebarToggle">
+<!-- 隐藏的checkbox用于控制侧栏的显示/隐藏 -->
+<input type="checkbox" id="sidebarToggle">
 
-    <!-- 顶栏 -->
+<!-- 顶栏 -->
 <div class="navbar">
     <div class="links">
         <a href="#home">首页</a>
@@ -97,17 +97,19 @@
         <a href="#services">服务</a>
         <a href="#contact">联系我们</a>
     </div>
-    <label for="sidebarToggle" class="sidebar-toggle-btn">☰</label>
+    <!-- 将汉堡菜单图标放在一个单独的div或span中，以便进行样式化 -->
+    <div class="sidebar-toggle-container">
+        <label for="sidebarToggle" class="sidebar-toggle-btn">☰</label>
+    </div>
 </div>
 
-    <!-- 侧栏 -->
-    <div class="sidebar">
-        <a href="#dashboard">仪表盘</a>
-        <a href="#profile">个人资料</a>
-        <a href="#settings">设置</a>
-        <!-- 可以添加更多链接 -->
-    </div>
-
+<!-- 侧栏 -->
+<div class="sidebar">
+    <a href="#dashboard">仪表盘</a>
+    <a href="#profile">个人资料</a>
+    <a href="#settings">设置</a>
+    <!-- 可以添加更多链接 -->
+</div>
     <!-- 主内容区域 -->
     <div class="main-content">
         <h1>欢迎来到我们的网站</h1>
