@@ -1,13 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title>
+    <title>世界观与OC设定Wiki</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 2em 0;
+        }
+        .section {
+            margin-bottom: 2em;
+            background-color: #fff;
+            padding: 1em;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .latest-updates, .popular-worldviews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+        }
+        .update-item, .worldview-item {
+            flex: 1 1 calc(33.333% - 1em);
+            box-sizing: border-box;
+        }
+        @media (max-width: 768px) {
+            .update-item, .worldview-item {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h3>测试一下</h3>
-    <a href="https://space.bilibili.com/3546610407574282">这是我的哔哩哔哩主页</a>
+    <header>
+        <h1>世界观与OC设定Wiki</h1>
+    </header>
+    <div class="container">
+        <section class="section" id="introduction">
+            <h2>网站总体介绍</h2>
+            <p>欢迎来到我们的世界观与OC设定Wiki，这里汇聚了丰富的原创角色和世界观设定，供你探索和创作。</p>
+        </section>
+        <section class="section" id="latest-updates">
+            <h2>最新更新</h2>
+            <div class="latest-updates">
+                <div class="update-item">
+                    <h3>更新标题1</h3>
+                    <p>这里是关于最新更新的简短描述。</p>
+                </div>
+                <div class="update-item">
+                    <h3>更新标题2</h3>
+                    <p>这里是另一个更新的简短描述。</p>
+                </div>
+                <!-- 可以根据需要添加更多更新项 -->
+            </div>
+        </section>
+        <section class="section" id="popular-worldviews">
+            <h2>热门世界观或OC设定</h2>
+            <div class="popular-worldviews">
+                <div class="worldview-item">
+                    <h3>世界观/OC标题1</h3>
+                    <p>这里是关于热门世界观或OC设定的简短描述。</p>
+                </div>
+                <div class="worldview-item">
+                    <h3>世界观/OC标题2</h3>
+                    <p>这里是另一个热门世界观或OC设定的简短描述。</p>
+                </div>
+                <!-- 可以根据需要添加更多世界观/OC设定项 -->
+            </div>
+        </section>
+        <!-- 可以根据需要添加更多板块 -->
+    </div>
 </body>
 </html>
