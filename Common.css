@@ -1,944 +1,103 @@
-/* 通用重置和基础样式 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5dc;
-    color: #333;
-}
-
-/* 头部样式 */
-.header {
-    background: linear-gradient(to bottom, #8b0000, #666);
-    padding: 20px;
-    text-align: center;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-/* 导航栏样式 */
-.navbar {
-    background-color: #1a1a1a;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.nav-left, .nav-right {
-    display: flex;
-    align-items: center;
-}
-
-.nav-link {
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 15px;
-    margin: 0 5px;
-    position: relative;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #8b0000;
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* 签到按钮样式 */
-.sign-in-button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 1em;
-    border: none;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    text-decoration: underline;
-    font-family: inherit;
-}
-
-.sign-in-button:hover {
-    text-decoration: none;
-}
-
-.sign-in-button:disabled {
-    color: #aaa;
-    cursor: not-allowed;
-    text-decoration: none;
-}
-
-/* 用户问候样式 */
-#userGreeting {
-    white-space: nowrap;
-}
-
-/* “隐藏/展开”按钮样式 */
-.navbar-toggle {
-    display: none; /* 默认隐藏，仅在手机端显示 */
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    padding: 8px 15px;
-    margin-left: 10px;
-    font-weight: bold;
-}
-
-.navbar-toggle:focus {
-    outline: none;
-}
-
-/* 通知容器样式 */
-.notices-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-}
-
-.notice-title {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #8b0000;
-}
-
-.notice {
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 5px;
-    transition: transform 0.3s ease;
-}
-
-.notice:hover {
-    transform: translateX(10px);
-}
-
-.notice a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.notice-emergency { background-color: #ffebee; border-left: 5px solid #8b0000; }
-.notice-important { background-color: #fff3e0; border-left: 5px solid #ff9800; }
-.notice-announcement { background-color: #e8f5e9; border-left: 5px solid #4caf50; }
-.notice-advertisement { background-color: #e0f2f1; border-left: 5px solid #009688; }
-
-.notice-date {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 5px;
-}
-
-/* 内容容器样式 */
-.content-row {
-    max-width: 1200px;
-    margin: 20px auto;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap; /* 允许换行 */
-}
-
-.content-box {
-    flex: 1;
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    min-width: 280px; /* 防止在小屏幕下过窄 */
-}
-
-.content-box h2 {
-    color: #8b0000;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #8b0000;
-}
-
-.content-item {
-    padding: 15px;
-    margin-bottom: 15px;
-    border-left: 3px solid #8b0000;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.content-item:hover {
-    transform: translateX(5px);
-    background-color: #f5f5f5;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-}
-
-.content-item h4 {
-    color: #8b0000;
-    font-size: 1.1em;
-    margin-bottom: 8px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.content-item p {
-    color: #555;
-    font-size: 0.95em;
-    margin: 8px 0;
-    line-height: 1.4;
-}
-
-.content-item .notice-date {
-    color: #888;
-    font-size: 0.85em;
-    font-style: italic;
-    margin-top: 5px;
-}
-
-.content-item a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-.content-item a:hover h4 {
-    color: #a00;
-    text-decoration: none;
-}
-
-.content-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #8b0000, transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.content-item:hover::after {
-    transform: scaleX(1);
-}
-
-/* 统计面板样式 */
-.stats-panel {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #1a1a1a;
-    color: white;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.stat-item {
-    text-align: center;
-    padding: 15px 25px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    min-width: 150px; /* 确保在小屏幕下不至于过窄 */
-}
-
-.stat-item:hover {
-    transform: translateY(-3px);
-}
-
-.stat-number {
-    font-size: 2em;
-    color: #8b0000;
-    margin-bottom: 5px;
-    transition: all 0.3s ease;
-    display: inline-block;
-    position: relative;
-    cursor: default;
-}
-
-.stat-item:hover .stat-number {
-    transform: scale(1.2);
-    animation: numberPulse 0.5s ease-in-out;
-}
-
-@keyframes numberPulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1.2);
-    }
-}
-
-.stat-label {
-    font-size: 0.9em;
-    color: #ccc;
-    transition: all 0.3s ease;
-}
-
-.stat-item:hover .stat-label {
-    color: #fff;
-}
-
-/* 底部版权栏样式 */
-.footer {
-    background-color: #1a1a1a;
-    color: #fff;
-    text-align: center;
-    padding: 15px;
-    position: sticky;
-    bottom: 0;
-    z-index: 1000;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-}
-
-.footer-content {
-    display: inline-block;
-    position: relative;
-    padding: 5px 15px;
-    transition: transform 0.3s ease;
-}
-
-.footer-content:hover {
-    transform: translateY(-5px);
-}
-
-/* 占位符样式 */
-.placeholder {
-    background-color: #f0f0f0;
-    border: 1px dashed #ccc;
-    padding: 20px;
-    text-align: center;
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    color: #999;
-    position: relative;
-    opacity: 0.6;
-}
-
-.placeholder::before {
-    font-size: 2em;
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ccc;
-}
-
-.additional-placeholder {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #666;
-}
-
-/* 内容格式化样式 */
-.content-formatted h4, .content-formatted p {
-    margin: 0.5em 0;
-}
-
-.content-item a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fafafa;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.content-item a:hover {
-    background-color: #f0f0f0;
-    border-color: #ccc;
-}
-
-.content-item a h4 {
     margin: 0;
-    font-size: 1.1em;
-    color: #333;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.content-item a p {
-    margin: 5px 0;
-    color: #555;
+.character-world-header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
 }
 
-/* 模态弹窗样式 */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+.character-world-header h1 {
+    margin: 0;
+}
+
+.character-world-header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(5px);
 }
 
-.modal-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+.character-world-header nav ul li {
+    margin: 0 1em;
+}
+
+.character-world-header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.character-world-sidebar {
+    background-color: #444;
+    color: #fff;
+    width: 250px;
     position: relative;
-    animation: modalAppear 0.3s ease-out;
-}
-
-@keyframes modalAppear {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.modal-header {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #8B0000;
-}
-
-.modal-title {
-    color: #8B0000;
-    font-size: 1.5em;
-    margin: 0;
-}
-
-.modal-content {
-    margin-bottom: 25px;
-    line-height: 1.6;
-    color: #333;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-}
-
-.modal-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: all 0.3s ease;
-}
-
-.modal-button.primary {
-    background-color: #8B0000;
-    color: white;
-}
-
-.modal-button.primary:hover {
-    background-color: #660000;
-}
-
-.modal-button.secondary {
-    background-color: #eee;
-    color: #333;
-}
-
-.modal-button.secondary:hover {
-    background-color: #ddd;
-}
-
-.modal-checkbox-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    user-select: none;
-}
-
-.modal-checkbox {
-    margin-right: 8px;
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.modal-checkbox-label {
-    font-size: 14px;
-    color: #666;
-    cursor: pointer;
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-/* 防止背景滚动 */
-body.modal-open {
     overflow: hidden;
 }
 
-/* 响应式设计 */
+.sidebar-toggle {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 1em;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.sidebar-content {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-out;
+}
+
+.sidebar-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-content ul li {
+    padding: 1em;
+    text-align: left;
+}
+
+.sidebar-content ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar-content ul li a:hover {
+    background-color: #666;
+}
+
+.character-world-main-content {
+    flex: 1;
+    padding: 2em;
+    background-color: #f4f4f4;
+}
+
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
+    .character-world-sidebar {
+        width: 100%;
         position: relative;
     }
 
-    .nav-left, .nav-right {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        display: flex; /* 默认显示在移动端 */
-        transition: max-height 0.3s ease-out;
+    .sidebar-content {
+        height: auto;
     }
 
-    /* 控制导航栏显示隐藏 */
-    .nav-left.hidden, .nav-right.hidden {
+    .sidebar-toggle {
         display: none;
     }
-
-    .nav-link {
-        padding: 8px 0;
-        margin: 5px 0;
-    }
-
-    /* 显示“隐藏/展开”按钮 */
-    .navbar-toggle {
-        display: block;
-        align-self: flex-end;
-        font-size: 1em;
-    }
-
-    .content-row {
-        flex-direction: column;
-    }
-
-    .content-box {
-        width: 100%;
-        min-width: 100%;
-    }
-
-    .stats-panel {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .stat-item {
-        width: 100%;
-        max-width: 300px;
-    }
-
-    .footer {
-        position: relative;
-    }
 }
-
-@media (max-width: 480px) {
-    .header h1 {
-        font-size: 2em;
-    }
-
-    .navbar {
-        padding: 10px;
-    }
-
-    .nav-link {
-        padding: 6px 10px;
-    }
-
-    .notices-container, .content-box, .stats-panel {
-        padding: 15px;
-    }
-
-    .content-item h4 {
-        font-size: 1em;
-    }
-
-    .content-item p, .notice-date {
-        font-size: 0.85em;
-    }
-
-    .modal-container {
-        padding: 20px;
-    }
-
-    .modal-title {
-        font-size: 1.2em;
-    }
-
-    .modal-button {
-        padding: 8px 16px;
-        font-size: 0.9em;
-    }
-
-    .modal-checkbox-label {
-        font-size: 13px;
-    }
-}
- // 基础格式
-            content = content.replace(/<1>(.*?)<\/1>/g, '<del>$1</del>');
-            content = content.replace(/<2>(.*?)<\/2>/g, '<em>$1</em>');
-            content = content.replace(/<3>(.*?)<\/3>/g, '<strong>$1</strong>');
-            content = content.replace(/<4>(.*?)<\/4>/g, '<u>$1</u>');
-
-            // 颜色格式
-            content = content.replace(/<h>(.*?)<\/h>/g, '<span style="background-color: yellow;">$1</span>');
-            content = content.replace(/<r>(.*?)<\/r>/g, '<span style="color: red;">$1</span>');
-            content = content.replace(/<b>(.*?)<\/b>/g, '<span style="color: blue;">$1</span>');
-            content = content.replace(/<g>(.*?)<\/g>/g, '<span style="color: green;">$1</span>');
-
-            // 大小格式
-            content = content.replace(/<s1>(.*?)<\/s1>/g, '<span style="font-size: small;">$1</span>');
-            content = content.replace(/<s2>(.*?)<\/s2>/g, '<span style="font-size: large;">$1</span>');
-            content = content.replace(/<s3>(.*?)<\/s3>/g, '<span style="font-size: x-large;">$1</span>');
-
-            // 特殊格式
-            content = content.replace(/<m>(.*?)<\/m>/g, '<span style="font-family: monospace;">$1</span>');
-            content = content.replace(/<w>(.*?)<\/w>/g, '<span style="letter-spacing: 2px;">$1</span>');
-            content = content.replace(/<c>(.*?)<\/c>/g, '<div style="text-align: center;">$1</div>');
-
-            return content;
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            let userData = {};
-
-            // 获取用户信息并处理签到状态
-            try {
-                const userResponse = await fetch('php/lobby.php');
-                if (!userResponse.ok) {
-                    throw new Error('未登录或会话过期');
-                }
-                const userJson = await userResponse.json();
-
-                if (userJson.error) {
-                    throw new Error(userJson.error);
-                }
-
-                userData = userJson;
-
-                // 更新用户问候
-                const userGreeting = document.getElementById('userGreeting');
-                userGreeting.textContent = `你好，${userData.username} (Level ${userData.level})`;
-
-                // 显示并更新签到按钮状态
-                const signInButton = document.getElementById('signInButton');
-                signInButton.style.display = 'inline';
-
-                if (userData.has_signed_in) {
-                    signInButton.textContent = '已签到';
-                    signInButton.disabled = true;
-                } else {
-                    signInButton.textContent = '签到';
-                    signInButton.disabled = false;
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-                const authLink = document.getElementById('authLink');
-                authLink.textContent = '登录';
-                authLink.href = 'index.html';
-
-                const signInButton = document.getElementById('signInButton');
-                signInButton.style.display = 'none';
-            }
-
-            // 获取统计信息和最新帖子并展示
-            try {
-                const infoResponse = await fetch('php/lobby_information.php');
-                if (!infoResponse.ok) {
-                    throw new Error('无法获取统计信息');
-                }
-                const infoData = await infoResponse.json();
-
-                if (infoData.error) {
-                    throw new Error(infoData.error);
-                }
-
-                // 更新统计数字
-                document.getElementById('total_posts').textContent = infoData.total_posts;
-                document.getElementById('archivesB_room_posts').textContent = infoData.archivesB_room_posts;
-                document.getElementById('active_projects').textContent = infoData.active_projects;
-                document.getElementById('researchers').textContent = infoData.researchers;
-
-                // 更新"客服部新发现"帖子
-                const discoveryContainer = document.getElementById('archivesB_room_posts_container');
-                discoveryContainer.innerHTML = ''; // 清空现有内容
-
-                infoData.latest_archivesB_room_posts.forEach(post => {
-                    if (post.project_id && post.preview) {
-                        const postElement = document.createElement('div');
-                        postElement.className = 'content-item content-formatted';
-                        postElement.innerHTML = `
-                            <a href="archivesB_data.php?project_id=${encodeURIComponent(post.project_id)}">
-                                <h4>【${parseCustomTags(post.project_id)}】${parseCustomTags(post.preview)}</h4>
-                                <p>创作者：${parseCustomTags(post.username)}</p>
-                                <div class="notice-date">${post.create_time}</div>
-                            </a>
-                        `;
-                        discoveryContainer.appendChild(postElement);
-                    } else {
-                        // 如果没有内容，显示"当前内容未解密"并添加占位符
-                        const placeholder = document.createElement('div');
-                        placeholder.className = 'content-item placeholder';
-                        placeholder.innerHTML = `
-                            <a href="archivesB_room.html">
-                                <h4><em>当前内容未解密</em></h4>
-                                <p><em>当前内容未解密</em></p>
-                                <div class="notice-date"></div>
-                                <div class="additional-placeholder">----------</div>
-                            </a>
-                        `;
-                        discoveryContainer.appendChild(placeholder);
-                    }
-                });
-
-                // 如果客服部帖子少于3条，补充占位符
-                for (let i = infoData.latest_archivesB_room_posts.length; i < 3; i++) {
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'content-item placeholder';
-                    placeholder.innerHTML = `
-                        <a href="archivesB_room.html">
-                            <h4><em>当前内容未解密</em></h4>
-                            <p><em>当前内容未解密</em></p>
-                            <div class="notice-date"></div>
-                            <div class="additional-placeholder">----------</div>
-                        </a>
-                    `;
-                    discoveryContainer.appendChild(placeholder);
-                }
-
-                // 更新"新研究员投稿"帖子
-                const submissionContainer = document.getElementById('archives_room_posts_container');
-                submissionContainer.innerHTML = ''; // 清空现有内容
-
-                infoData.latest_archives_room_posts.forEach(post => {
-                    if (post.project_id && post.preview) {
-                        const postElement = document.createElement('div');
-                        postElement.className = 'content-item content-formatted';
-                        postElement.innerHTML = `
-                            <a href="archives_data.php?project_id=${encodeURIComponent(post.project_id)}">
-                                <h4>【${parseCustomTags(post.project_id)}】${parseCustomTags(post.preview)}</h4>
-                                <p>研究员: ${parseCustomTags(post.username)}</p>
-                                <div class="notice-date">${post.create_time}</div>
-                            </a>
-                        `;
-                        submissionContainer.appendChild(postElement);
-                    } else {
-                        // 如果没有内容，显示占位符
-                        const placeholder = document.createElement('div');
-                        placeholder.className = 'content-item placeholder';
-                        placeholder.innerHTML = `
-                            <a href="archives_room.html">
-                                <h4><em>当前内容未解密</em></h4>
-                                <p><em>当前内容未解密</em></p>
-                                <div class="notice-date"></div>
-                                <div class="additional-placeholder">----------</div>
-                            </a>
-                        `;
-                        submissionContainer.appendChild(placeholder);
-                    }
-                });
-
-                // 如果研究员投稿少于3条，补充占位符
-                for (let i = infoData.latest_archives_room_posts.length; i < 3; i++) {
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'content-item placeholder';
-                    placeholder.innerHTML = `
-                        <a href="archives_room.html">
-                            <h4><em>当前内容未解密</em></h4>
-                            <p><em>当前内容未解密</em></p>
-                            <div class="notice-date"></div>
-                            <div class="additional-placeholder">----------</div>
-                        </a>
-                    `;
-                    submissionContainer.appendChild(placeholder);
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-            }
-
-            // 获取待修补档案数据
-            try {
-                const waitResponse = await fetch('php/wait.php');
-                if (!waitResponse.ok) {
-                    throw new Error('无法获取待修补档案数据');
-                }
-                const waitData = await waitResponse.json();
-
-                // 更新“待修补[研究员]档案”卡片
-                const pendingResearcherArchivesContainer = document.getElementById('pending_researcher_archives_container');
-                pendingResearcherArchivesContainer.innerHTML = ''; // 清空现有内容
-
-                waitData.pending_researcher_archives.forEach(archive => {
-                    const archiveElement = document.createElement('div');
-                    archiveElement.className = 'content-item content-formatted';
-                    archiveElement.innerHTML = `
-                        <a href="edit.php?project_id=${encodeURIComponent(archive.project_id)}">
-                            <h4>档案编号${archive.project_id}</h4>
-                            <p>状态: ${archive.status}</p>
-                            <div class="notice-date">${archive.create_time}</div>
-                        </a>
-                    `;
-                    pendingResearcherArchivesContainer.appendChild(archiveElement);
-                });
-
-                // 如果待修补[研究员]档案少于3条，补充占位符
-                for (let i = waitData.pending_researcher_archives.length; i < 3; i++) {
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'content-item placeholder';
-                    placeholder.innerHTML = `
-                        <a href="archives_room.html">
-                            <h4><em>暂无待修补档案</em></h4>
-                            <p><em>暂无待修补档案</em></p>
-                            <div class="notice-date"></div>
-                            <div class="additional-placeholder">----------</div>
-                        </a>
-                    `;
-                    pendingResearcherArchivesContainer.appendChild(placeholder);
-                }
-
-                // 更新“待修补[客服部]档案”卡片
-                const pendingCustomerServiceArchivesContainer = document.getElementById('pending_customer_service_archives_container');
-                pendingCustomerServiceArchivesContainer.innerHTML = ''; // 清空现有内容
-
-                waitData.pending_customer_service_archives.forEach(archive => {
-                    const archiveElement = document.createElement('div');
-                    archiveElement.className = 'content-item content-formatted';
-                    archiveElement.innerHTML = `
-                        <a href="editB.php?project_id=${encodeURIComponent(archive.project_id)}">
-                            <h4>档案编号${archive.project_id}</h4>
-                            <p>状态: ${archive.status}</p>
-                            <div class="notice-date">${archive.create_time}</div>
-                        </a>
-                    `;
-                    pendingCustomerServiceArchivesContainer.appendChild(archiveElement);
-                });
-
-                // 如果待修补[客服部]档案少于3条，补充占位符
-                for (let i = waitData.pending_customer_service_archives.length; i < 3; i++) {
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'content-item placeholder';
-                    placeholder.innerHTML = `
-                        <a href="archives_room.html">
-                            <h4><em>暂无待修补档案</em></h4>
-                            <p><em>暂无待修补档案</em></p>
-                            <div class="notice-date"></div>
-                            <div class="additional-placeholder">----------</div>
-                        </a>
-                    `;
-                    pendingCustomerServiceArchivesContainer.appendChild(placeholder);
-                }
-
-            } catch (error) {
-                console.error('Error fetching wait.php data:', error);
-            }
-
-            // 处理签到按钮点击事件
-            const signInButton = document.getElementById('signInButton');
-            if (signInButton) {
-                signInButton.addEventListener('click', async () => {
-                    try {
-                        signInButton.disabled = true;
-                        const signInResponse = await fetch('php/sign_in.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        });
-                        const signInData = await signInResponse.json();
-
-                        if (signInData.status === 'success') {
-                            alert(signInData.message);
-                            signInButton.textContent = '已签到';
-                            signInButton.disabled = true;
-
-                            // 更新用户等级显示
-                            const userGreeting = document.getElementById('userGreeting');
-                            userGreeting.textContent = `你好，${userData.username} (Level ${userData.level})`;
-                        } else {
-                            alert(signInData.message);
-                            if (signInData.status === 'already_signed_in') {
-                                signInButton.textContent = '已签到';
-                                signInButton.disabled = true;
-                            } else {
-                                signInButton.disabled = false;
-                            }
-                        }
-                    } catch (error) {
-                        console.error('签到错误:', error);
-                        alert('签到失败，请稍后再试。');
-                        signInButton.disabled = false;
-                    }
-                });
-            }
-
-            // 导航栏收起/展开功能
-            const navbarToggle = document.getElementById('navbarToggle');
-            const navLeft = document.querySelector('.nav-left');
-            const navRight = document.querySelector('.nav-right');
-
-            navbarToggle.addEventListener('click', () => {
-                const isShown = navLeft.classList.contains('show') && navRight.classList.contains('show');
-                if (isShown) {
-                    // 隐藏导航栏
-                    navLeft.classList.remove('show');
-                    navRight.classList.remove('show');
-                    navbarToggle.textContent = '展开';
-                } else {
-                    // 显示导航栏
-                    navLeft.classList.add('show');
-                    navRight.classList.add('show');
-                    navbarToggle.textContent = '隐藏';
-                }
-            });
-
-            // 为“火塘”链接添加点击事件监听
-            document.getElementById('huotangLink').addEventListener('click', function(event) {
-                event.preventDefault(); // 阻止默认链接跳转行为
-                openHuotangModal();
-            });
-
-            // 点击模态遮罩层关闭弹窗
-            document.getElementById('huotangModal').addEventListener('click', function(event) {
-                if (event.target === this) {
-                    closeHuotangModal();
-                }
-            });
-        });
