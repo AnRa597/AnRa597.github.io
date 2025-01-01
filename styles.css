@@ -256,3 +256,21 @@ A+B{}这个+是选择相邻兄弟，称作“相邻兄弟选择器”，如果�
     display: none;
     /*隐藏原生的多选框*/
 }
+*{
+    margin: 0;
+    padding: 0;
+/*    全局设置为0内外边距*/
+}
+ 
+:root{
+    /*:root是指文档的根元素，在其中定义的变量可作为全局变量*/
+    /*可以理解为 c语言 在main函数，定义的全局变量*/
+    color-menu-bg: #fff;
+    font-color-mi: #fdb095;
+    font-color-mi-hover: #7facd6;
+    color-bg-mi-hover: #e8b7d4;
+    border-radius-mi:2px;
+    transition-menu-time: 0.2s;
+    color-line-bg: #d3d3d3;
+    color-zidingyi:#210440;
+}
