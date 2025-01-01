@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title>
+    <title>网站首页带可隐藏侧栏</title>
     <style>
         /* 基本样式重置 */
         body, html {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            overflow-x: hidden; /* 防止侧栏出现时页面水平滚动 */
+        }
+
+        /* 隐藏checkbox */
+        #sidebarToggle {
+            display: none;
         }
 
         /* 顶栏样式 */
@@ -18,6 +24,7 @@
             color: #fff;
             padding: 1em 0;
             text-align: center;
+            position: relative;
         }
         .navbar a {
             color: #fff;
@@ -29,32 +36,81 @@
         .navbar a:hover {
             background-color: #575757;
         }
+        /* 添加侧栏切换按钮 */
+        .navbar .sidebar-toggle-btn {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        /* 侧栏样式 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px; /* 初始位置在屏幕外 */
+            width: 250px;
+            height: 100%;
+            background-color: #222;
+            color: #fff;
+            padding: 1em;
+            transition: left 0.3s;
+            z-index: 1000; /* 确保侧栏在内容之上 */
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 0.5em 0;
+            margin-bottom: 0.5em;
+        }
+        .sidebar a:hover {
+            background-color: #333;
+        }
 
         /* 主内容区域样式 */
         .main-content {
             padding: 2em;
-            text-align: center;
+            transition: margin-left 0.3s;
         }
-        .main-content h1 {
-            margin-top: 0;
+
+        /* 当checkbox被选中时，显示侧栏并调整主内容区域 */
+        #sidebarToggle:checked ~ .sidebar {
+            left: 0;
+        }
+        #sidebarToggle:checked ~ .main-content {
+            margin-left: 250px;
         }
     </style>
 </head>
 <body>
+    <!-- 隐藏的checkbox用于控制侧栏的显示/隐藏 -->
+    <input type="checkbox" id="sidebarToggle">
+
     <!-- 顶栏 -->
     <div class="navbar">
         <a href="#home">首页</a>
         <a href="#about">关于我们</a>
         <a href="#services">服务</a>
         <a href="#contact">联系我们</a>
-        <!-- 可以添加更多链接，如登录、注册等 -->
+        <!-- 侧栏切换按钮 -->
+        <label for="sidebarToggle" class="sidebar-toggle-btn">☰</label>
+    </div>
+
+    <!-- 侧栏 -->
+    <div class="sidebar">
+        <a href="#dashboard">仪表盘</a>
+        <a href="#profile">个人资料</a>
+        <a href="#settings">设置</a>
+        <!-- 可以添加更多链接 -->
     </div>
 
     <!-- 主内容区域 -->
     <div class="main-content">
-        <h1>欢迎来到[等待取名]</h1>
-        <p>这里是首页的区域。你可以在这里放置欢迎信息、最新动态、特色服务等。</p>
-        <!-- 可以根据需要添加更多内容，如图片、视频、表单等 -->
+        <h1>欢迎来到我们的网站</h1>
+        <p>这里是网站首页的内容区域。你可以在这里放置欢迎信息、最新动态、特色服务等。</p>
+        <!-- 可以根据需要添加更多内容 -->
     </div>
 
     <!-- 可以在这里添加更多的页面内容或脚本 -->
