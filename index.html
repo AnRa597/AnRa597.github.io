@@ -1,60 +1,146 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Character World - 首页</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+        }
+
+        .header h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0.5rem 0;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .nav a:hover {
+            color: #ddd;
+        }
+
+        /* Main content styles */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome {
+            margin-bottom: 2rem;
+        }
+
+        .welcome h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+        }
+
+        .footer .contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ddd;
+        }
+    </style>
 </head>
 <body>
-    <header class="character-world-header">
+    <header class="header">
         <h1>Character World</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">首页</a></li>
-                <li><a href="characters.html">人物设定</a></li>
-                <li><a href="world.html">世界观介绍</a></li>
-                <li><a href="about.html">关于我们</a></li>
-            </ul>
+        <nav class="nav">
+            <a href="#"><i class="fas fa-home"></i> 首页</a>
+            <a href="#"><i class="fas fa-users"></i> 人物设定</a>
+            <a href="#"><i class="fas fa-globe"></i> 世界观介绍</a>
+            <a href="#"><i class="fas fa-info-circle"></i> 关于我们</a>
         </nav>
     </header>
-    
-    <aside class="character-world-sidebar">
-        <button class="sidebar-toggle">☰ 菜单</button>
-        <nav class="sidebar-content">
-            <ul>
-                <li><a href="index.html">首页</a></li>
-                <li><a href="characters.html">人物设定</a></li>
-                <li><a href="world.html">世界观介绍</a></li>
-                <li><a href="about.html">关于我们</a></li>
-            </ul>
-        </nav>
-    </aside>
-    
-    <main class="character-world-main-content">
-        <h2>欢迎来到 Character World</h2>
-        <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
-        <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
+
+    <main class="main-content">
+        <section class="welcome">
+            <h2>欢迎来到 Character World</h2>
+            <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
+            <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
+        </section>
     </main>
 
-    <footer class="character-world-footer">
-        <div class="footer-content">
-            <section class="copyright">
-                <p>&copy; 2023 Character World. 保留所有权利。</p>
-            </section>
-            <section class="contact">
-                <p>联系方式: <a href="mailto:info@characterworld.com">info@characterworld.com</a></p>
-                <p>电话: +123-456-7890</p>
-            </section>
-            <section class="social-media">
-                <p>关注我们:</p>
-                <ul>
-                    <li><a href="https://facebook.com/characterworld" target="_blank"><img src="facebook-icon.png" alt="Facebook"></a></li><li><a href="https://twitter.com/characterworld" target="_blank"><img src="twitter-icon.png" alt="Twitter"></a></li><li><a href="https://instagram.com/characterworld" target="_blank"><img src="instagram-icon.png" alt="Instagram"></a></li>
-                </ul>
-            </section>
+    <footer class="footer">
+        <p>© 2023 Character World. 保留所有权利。</p>
+        <div class="contact">
+            <p>联系方式: <a href="mailto:info@character-world.com" style="color: white;">info@character-world.com</a></p>
+            <p>电话: +123-456-7890</p>
+        </div>
+        <p>关注我们:</p>
+        <div class="social-links">
+            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
-
-    <script src="script.js"></script>
 </body>
+</html>
+
 </html>
