@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异常管理局 - 档案室</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/archives_room.css?v=0.89">
+</head>
+<body>
+    <!-- 渐变标题块 -->
+    <header class="header-gradient">
+        <h1 class="header-title">档案室</h1>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="php/user.php" class="nav-link nav-welcome">
+                <i class="fas fa-key"></i>
+                <span id="userWelcome">你好，研究员（Level 5）</span>
+            </a>
+            <div class="nav-links-right">
+                <a href="lobby.html" class="nav-link">大厅</a>
+                <a href="https://space.bilibili.com/403881577" class="nav-link">客服部</a>
+                <a href="#" class="nav-link">部门中心</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 筛选按钮 -->
+        <div class="filter-buttons">
+            <!-- 调整按钮顺序 -->
+            <button class="filter-button active" onclick="showContent('discovered')">研究员新发现</button>
+            <button class="filter-button" onclick="showContent('recorded')">客服部已收录</button>
+        </div>
+
+        <!-- 搜索栏和创建按钮包装器 -->
+        <div class="search-wrapper">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="输入档案编号或关键词进行搜索...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <!-- 调整创建按钮的位置 -->
+            <div id="discovered-button">
+                <a href="archives.html" class="create-archive-button">
+                    <i class="fas fa-plus"></i>
+                    创建研究员档案
+                </a>
+            </div>
+            <div id="recorded-button" class="hidden">
+                <a href="archives_B.html" class="create-archive-button">
+                    <i class="fas fa-plus"></i>
+                    创建客服部档案
+                </a>
+            </div>
+        </div>
+
+        <!-- 档案列表容器 -->
+        <!-- 调整展示区域的顺序 -->
+        <div id="discovered" class="archives-container">
+            <!-- 动态加载的新发现档案将在这里显示 -->
+        </div>
+
+        <div id="recorded" class="archives-container hidden">
+            <!-- 动态加载的已收录档案将在这里显示 -->
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer fixed-footer">
+        <p>异常管理局 - 保密等级：<span class="clearance-level">4级</span></p>
+    </footer>
+    <script src="js/archives_room.js?v=0.13"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8fb0bd66cef167f5","version":"2024.10.5","r":1,"token":"02a3b03e506a413db7b1c46f10cc6120","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>
