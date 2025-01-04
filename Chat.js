@@ -1,37 +1,46 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const messagesDiv = document.getElementById('messages');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
 
-.chat-container {
-    width: 300px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    // 模拟的消息存储（由于没有后端，消息将存储在浏览器的内存中）
+    let messages = [];
 
-.messages {
-    border: 1px solid #ddd;
-    height: 200px;
-    overflow-y: auto;
-    padding: 10px;
-    margin-bottom: 10px;
-}
+    // 渲染消息到页面上
+    function renderMessages() {
+        messagesDiv.innerHTML = '';
+        messages.forEach((msg, index) => {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.textContent = `${index + 1}. ${msg}`;
+            messagesDiv.appendChild(messageElement);
+        });
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // 滚动到底部
+    }
 
-.message {
-    margin-bottom: 5px;
-}
+    // 轮询检查新消息（这里只是模拟，实际上不会有新消息，因为后端不存在）
+    setInterval(() => {
+        // 在实际应用中，这里会检查服务器上的新消息
+        // 但由于我们没有后端，所以这里什么也不做
+        // 只是为了演示轮询的概念
+    }, 2000); // 每2秒轮询一次
 
-#messageInput {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-}
+    sendButton.addEventListener('click', () => {
+        const message = messageInput.value.trim();
+        if (message) {
+            messages.push(message);
+            renderMessages();
+            messageInput.value = '';
+        }
+    });
 
-#sendButton {
-    padding: 10px;
-    cursor: pointer;
-}
+    // 可选：按下回车键发送消息
+    messageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendButton.click();
+        }
+    });
+
+    // 初始渲染消息（虽然一开始没有消息，但这是一个好习惯）
+    renderMessages();
+});
