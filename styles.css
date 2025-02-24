@@ -5,7 +5,6 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
-
 /* 容器布局 */
 .container {
     display: flex;
@@ -13,7 +12,6 @@
     min-height: 100vh;
     min-height: -webkit-fill-available;
 }
-
 /* 侧边栏系统 */
 .sidebar-container {
     position: fixed;
@@ -37,7 +35,6 @@
     color: white;
     height: 100%;
 }
-
 /* 遮罩层 */
 .sidebar-overlay {
     display: none;
@@ -49,7 +46,6 @@
     background: rgba(0,0,0,0.5);
     z-index: 999;
 }
-
 /* 顶栏样式 */
 .header {
     position: sticky;
@@ -65,7 +61,6 @@
     font-size: 2rem;
     margin-left: 50px;
 }
-
 /* 主内容区 */
 .main-wrapper {
     flex: 1;
@@ -79,7 +74,6 @@
     margin: 0 auto;
     width: 100%;
 }
-
 /* 导航菜单 */
 .nav-menu {
     list-style: none;
@@ -106,7 +100,6 @@
     align-items: center;
     gap: 10px;
 }
-
 /* 按钮样式 */
 .menu-toggle,
 .close-btn {
@@ -131,7 +124,6 @@
     top: 20px;
     display: none;
 }
-
 /* 页脚样式 */
 .footer {
     background-color: #333;
