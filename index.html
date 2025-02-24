@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>XX Wiki</title>
+    <!-- 引入第三方聊天室 -->
+    <script src="https://cdn.tawk.to/your-script-id/default.js" async></script>
+    <style>
+        /* CSS 样式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #top-bar {
+            background: var(--primary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-button {
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .nav-button:hover {
+            background: var(--secondary-color);
+        }
+
+        #search-bar {
+            padding: 0.5rem;
+            width: 300px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+        }
+
+        #main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .announcement {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .ad-banner {
+            background: #e9ecef;
+            height: 150px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .content-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .login-form {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶栏 -->
+    <div id="top-bar">
+        <div>
+            <button class="nav-button" onclick="showPage('home')">首页</button>
+            <button class="nav-button" onclick="showPage('about')">关于</button>
+            <button class="nav-button" onclick="showPage('upload')">投稿</button>
+        </div>
+        <input type="text" id="search-bar" placeholder="搜索内容...">
+        <div>
+            <button class="nav-button" id="login-btn" onclick="showLogin()">登录/注册</button>
+        </div>
+    </div>
+
+    <!-- 主页内容 -->
+    <div id="main-content">
+        <div class="announcement">
+            <h2>网站公告</h2>
+            <p>欢迎来到XX Wiki！当前版本为测试版，欢迎反馈建议。</p>
+        </div>
+
+        <div class="ad-banner">
+            <p>广告位招租</p>
+        </div>
+
+        <div class="content-grid" id="content-container"></div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>联系我们：QQ群 12345678 | QQ号 87654321</p>
+        <p>2025 © XXX网站</p>
+    </footer>
+
+    <!-- 登录表单 -->
+    <div id="login-modal" style="display: none;">
+        <div class="login-form">
+            <h2>用户登录</h2>
+            <input type="text" id="username" placeholder="用户名">
+            <input type="password" id="password" placeholder="密码">
+            <button onclick="handleLogin()">登录</button>
+            <button onclick="handleRegister()">注册</button>
+        </div>
+    </div>
+
+    <script>
+        // 模拟数据
+        const sampleData = [
+            { type: '文章', title: '新手入门指南', content: '...' },
+            { type: '设定', title: '世界观基础设定', content: '...' },
+            { type: '物品', title: '魔法物品图鉴', content: '...' }
+        ];
+
+        // 初始化内容
+        function loadContent() {
+            const container = document.getElementById('content-container');
+            container.innerHTML = sampleData
+                .sort(() => Math.random() - 0.5)
+                .map(item => `
+                    <div class="content-card" onclick="showDetail('${item.type}', '${item.title}')">
+                        <h3>${item.title}</h3>
+                        <p>类型：${item.type}</p>
+                    </div>
+                `).join('');
+        }
+
+        // 页面切换
+        function showPage(page) {
+            // 实现页面切换逻辑
+            console.log('切换到页面:', page);
+        }
+
+        // 登录注册功能
+        function showLogin() {
+            document.getElementById('login-modal').style.display = 'block';
+        }
+
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            // 本地存储验证
+            localStorage.setItem('currentUser', username);
+            alert('登录成功');
+        }
+
+        function handleRegister() {
+            const username = document.getElementById('username').value;
+            localStorage.setItem('user_' + username, JSON.stringify({
+                password: document.getElementById('password').value
+            }));
+            alert('注册成功');
+        }
+
+        // 搜索功能
+        document.getElementById('search-bar').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            // 实现搜索过滤
+        });
+
+        // 初始化
+        window.onload = () => {
+            loadContent();
+            if(localStorage.getItem('currentUser')) {
+                document.getElementById('login-btn').textContent = 
+                    localStorage.getItem('currentUser');
+            }
+        };
+    </script>
+</body>
+</html>
