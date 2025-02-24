@@ -11,177 +11,125 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: Arial, sans-serif;
+        .container {
+            display: flex;
+            min-height: 100vh;
         }
 
-        /* 侧栏容器 */
+        /* 可伸缩侧栏 */
         .sidebar {
-            height: 100%;
+            background: #2c3e50;
             width: 250px;
-            position: fixed;
-            top: 0;
-            left: -250px;
-            background-color: #2c3e50;
-            padding-top: 20px;
-            transition: 0.3s;
-            z-index: 1000;
+            min-width: 60px;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        /* 侧栏激活状态 */
-        .sidebar.active {
-            left: 0;
+        /* 伸缩控制按钮 */
+        .toggle-btn {
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            right: -40px;
+            top: 10px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        /* 收缩状态 */
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar.collapsed .menu-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-item {
+            justify-content: center;
         }
 
         /* 菜单项样式 */
-        .sidebar-menu {
-            list-style: none;
-            padding: 20px;
-        }
-
-        .sidebar-menu li {
-            margin: 15px 0;
-        }
-
-        .sidebar-menu a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-size: 18px;
-            display: block;
-            padding: 10px;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-
-        .sidebar-menu a:hover {
-            background-color: #34495e;
-        }
-
-        /* 主内容区域 */
-        .main-content {
-            margin-left: 0;
-            padding: 20px;
-            transition: 0.3s;
-        }
-
-        /* 菜单按钮 */
-        .menu-toggle {
-            font-size: 24px;
-            cursor: pointer;
-            padding: 10px 15px;
-            background-color: #3498db;
+        .menu-item {
             color: white;
-            border: none;
-            border-radius: 4px;
-            position: fixed;
-            left: 20px;
-            top: 20px;
-            z-index: 999;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
         }
 
-        /* 遮罩层 */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+        .menu-item:hover {
+            background: #34495e;
         }
 
         /* 响应式设计 */
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
             .sidebar {
-                left: 0;
-            }
-
-            .main-content {
-                margin-left: 250px;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
-            .overlay {
-                display: none !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sidebar {
-                width: 200px;
-                left: -200px;
+                position: fixed;
+                height: 100%;
+                z-index: 1000;
+                left: -250px;
             }
 
             .sidebar.active {
                 left: 0;
             }
+
+            .toggle-btn {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 侧栏 -->
-    <aside class="sidebar">
-        <nav>
-            <ul class="sidebar-menu">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">关于我们</a></li>
-                <li><a href="#">服务项目</a></li>
-                <li><a href="#">联系我们</a></li>
-                <li><a href="#">客户案例</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <div class="container">
+        <aside class="sidebar">
+            <button class="toggle-btn">☰</button>
+            <nav>
+                <div class="menu-item">
+                    <span>🏠</span>
+                    <span class="menu-text">首页</span>
+                </div>
+                <div class="menu-item">
+                    <span>📝</span>
+                    <span class="menu-text">文档</span>
+                </div>
+                <div class="menu-item">
+                    <span>⚙️</span>
+                    <span class="menu-text">设置</span>
+                </div>
+            </nav>
+        </aside>
 
-    <!-- 遮罩层 -->
-    <div class="overlay"></div>
-
-    <!-- 主内容 -->
-    <main class="main-content">
-        <button class="menu-toggle">☰</button>
-        <h1>网站内容标题</h1>
-        <p>这里是网站的主要内容...</p>
-    </main>
+        <main class="main-content">
+            <h1>主内容区</h1>
+            <p>尝试点击侧栏的伸缩按钮 →</p>
+        </main>
+    </div>
 
     <script>
         const sidebar = document.querySelector('.sidebar');
-        const menuToggle = document.querySelector('.menu-toggle');
-        const overlay = document.querySelector('.overlay');
-        const mainContent = document.querySelector('.main-content');
+        const toggleBtn = document.querySelector('.toggle-btn');
 
-        // 切换侧栏
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
-        }
+        // 桌面端伸缩
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
 
-        // 事件监听
-        menuToggle.addEventListener('click', toggleSidebar);
-        overlay.addEventListener('click', toggleSidebar);
-
-        // 窗口大小改变时自动调整
+        // 移动端处理
         window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                sidebar.classList.remove('active');
-                overlay.style.display = 'none';
-            }
-        });
-
-        // 移动端滑动关闭
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            if (sidebar.classList.contains('active') && touchStartX - touchEndX > 50) {
-                toggleSidebar();
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('collapsed');
             }
         });
     </script>
