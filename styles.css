@@ -1,350 +1,204 @@
-/* styles.css */
-
-body {
+/* 基础重置 */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-.character-world-header {
-    background-color: #333;
-    color: white;
-    padding: 1em;
-    text-align: center;
-}
-
-.character-world-header nav ul {
-    list-style: none;
     padding: 0;
-}
-
-.character-world-header nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-.character-world-header nav ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-.character-world-sidebar {
-    width: 200px;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: #f4f4f4;
-    padding-top: 60px; /* Adjust this value based on your header height */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    transform: translateX(-100%); /* Hide the sidebar initially */
-    transition: transform 0.3s ease-in-out;
-}
-
-.sidebar-content {
-    padding: 10px;
-}
-
-.sidebar-content ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar-content ul li {
-    margin: 10px 0;
-}
-
-.sidebar-content ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-.sidebar-toggle {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    position: fixed;
-    left: 10px;
-    top: 10px;
-    z-index: 1000;
-}
-
-/* Add a class to show the sidebar */
-.sidebar-open .character-world-sidebar {
-    transform: translateX(0);
-}
-/* styles.css */
-.character-world-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    position: relative; /* 确保页脚在内容下方 */
-    bottom: 0; /* 如果需要的话，但这通常不是必需的，除非你有特定的布局问题 */
-    width: 100%; /* 确保页脚覆盖整个页面宽度 */
-}
-
-.footer-content {
-    max-width: 1200px; /* 根据你的设计调整 */
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.footer-content section {
-    margin-bottom: 15px;
-}
-
-.footer-content .social-media ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.footer-content .social-media ul li {
-    margin: 0 10px;
-}
-
-.footer-content .social-media ul li img {
-    width: 30px; /* 根据你的图标大小调整 */
-    height: 30px; /* 根据你的图标大小调整 */
-}
-/* 设置页面的基本样式 */
-body {
-    font-family: Arial, sans-serif; /* 设置字体 */
-    margin: 0; /* 去掉默认的外边距 */
-    padding: 0; /* 去掉默认的内边距 */
-    display: flex; /* 使用Flexbox布局 */
-}
-
-/* 侧栏样式 */
-.sidebar {
-    width: 250px; /* 侧栏宽度 */
-    background-color: #333; /* 侧栏背景颜色 */
-    color: white; /* 文字颜色 */
-    padding: 20px; /* 内边距 */
-    position: fixed; /* 固定定位 */
-    height: 100%; /* 高度100% */
-    top: 0; /* 顶部对齐 */
-    left: 0; /* 左侧对齐 */
-}
-
-/* 侧栏标题样式 */
-.sidebar h2 {
-    text-align: center; /* 居中对齐 */
-    margin: 0 0 20px 0; /* 上下外边距 */
-    background-color: #444; /* 背景颜色稍微深一点 */
-    padding: 10px; /* 内边距 */
-}
-
-/* 侧栏菜单项样式 */
-.sidebar ul {
-    list-style-type: none; /* 去掉列表项前的符号 */
-    padding: 0; /* 去掉内边距 */
-}
-
-.sidebar ul li {
-    margin: 20px 0; /* 列表项之间的外边距 */
-}
-
-.sidebar ul li a {
-    text-decoration: none; /* 去掉下划线 */
-    color: white; /* 文字颜色 */
-    display: block; /* 块级元素 */
-    padding: 10px; /* 内边距 */
-    border-radius: 5px; /* 圆角 */
-}
-
-.sidebar ul li a:hover {
-    background-color: #555; /* 鼠标悬停时的背景颜色 */
-}
-
-/* 主内容区域样式 */
-.main-content {
-    margin-left: 270px; /* 主内容区域左边距，比侧栏宽一点以留出空间 */
-    padding: 20px; /* 内边距 */
-}
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-}
-
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #333;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
-    z-index: 1000;
-}
-
-.sidebar.hidden {
-    transform: translateX(-100%);
-}
-
-.toggle-button {
-    background-color: #444;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    font-size: 24px;
-}
-
-.content {
-    margin-left: 250px;
-    padding: 20px;
-    transition: margin-left 0.3s ease-in-out;
-}
-
-.content.expanded {
-    margin-left: 0;
-}
-.content{
-    background-color: #e7e7e7;
-    min-height: 100vh;
-}
- 
-.menu-box{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Sans', Arial, sans-serif;
-    letter-spacing: 0.5px;
-    /*设置字母之间的间距*/
-    font-weight: 600;
-    position: relative;
-    width: fit-content;
-    /* fit-content 作用: 根据内容自适应宽度 可以结合margin-auto 来实现居中*/
-    min-height: 100vh;
-    /*浏览器可见视口【高度】的百分比（1vh代表视窗【高度】的1%）*/
-    padding: 6px 12px;
     box-sizing: border-box;
-    /*border-box是指将边框border和内边距padding在现有元素的宽度和高度内设置*/
-    /*background-color: var(--color-menu-bg);*/
-    background-color: var(--color-zidingyi);
-}
- 
-.menu-box>input#menu-btn:checked+label>i{
-    transform: rotate(180deg);
-}
-body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
 }
 
-.chat-container {
-    width: 300px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.messages {
-    border: 1px solid #ddd;
-    height: 200px;
-    overflow-y: auto;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.message {
-    margin-bottom: 5px;
-}
-
-#messageInput {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#sendButton {
-    padding: 10px;
-    cursor: pointer;
-}
- /* ...之前的样式... */
-
-.message {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background-color: #ccc; /* 默认背景色，稍后会被随机颜色替换 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    color: #fff;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.message-text {
-    /* 消息文本的样式 */
-}
- body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
+/* 容器布局 */
 .container {
-    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
+/* 侧边栏系统 */
+.sidebar-container {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    bottom: 0;
+    width: 80%;
+    max-width: 300px;
+    background: #34495e;
+    z-index: 1000;
+    transition: transform 0.3s;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sidebar-container.active {
+    transform: translateX(100%);
+}
+
+.sidebar {
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
+    color: white;
+    height: 100%;
 }
 
-h2 {
-    margin-bottom: 20px;
+/* 遮罩层 */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    text-align: left;
+/* 顶栏样式 */
+.header {
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    color: white;
+    padding: 1rem 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 800;
 }
 
-input {
+.header h1 {
+    font-size: 2rem;
+    margin-left: 50px;
+}
+
+/* 主内容区 */
+.main-wrapper {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.main-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+/* 导航菜单 */
+.nav-menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.nav-item {
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     cursor: pointer;
-    font-size: 16px;
+    transition: background 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+.nav-item:hover {
+    background: #2c3e50;
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 按钮样式 */
+.menu-toggle,
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.menu-toggle {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: none;
+}
+
+/* 页脚样式 */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    z-index: 800;
+}
+
+.contact a {
+    color: white;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #ddd;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .menu-toggle,
+    .close-btn {
+        display: block;
+    }
+
+    .sidebar-container {
+        width: 80%;
+    }
+}
+
+@media (min-width: 769px) {
+    .sidebar-container {
+        position: static;
+        width: 250px;
+        transform: none !important;
+    }
+    
+    .main-wrapper {
+        margin-left: 250px;
+    }
+}
+
+/* iOS特定优化 */
+@supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
+    
+    .container {
+        min-height: -webkit-fill-available;
+    }
+    
+    .sidebar-container {
+        -webkit-overflow-scrolling: touch;
+    }
 }
