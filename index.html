@@ -13,51 +13,143 @@
             font-family: Arial, sans-serif;
         }
 
-        body {
+        /* 新增布局容器 */
+        .container {
+            display: grid;
+            grid-template:
+                "sidebar header" auto
+                "sidebar main" 1fr
+                / auto 1fr;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* Header styles */
+        /* 侧栏样式 */
+        .sidebar {
+            grid-area: sidebar;
+            background: #34495e;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            transition: transform 0.3s;
+            z-index: 20;
+            color: white;
+            padding: 20px;
+        }
+
+        /* 顶栏样式 */
         .header {
+            grid-area: header;
             background-color: #333;
             color: white;
-            padding: 1rem 0;
+            padding: 1rem 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+            position: relative;
         }
 
         .header h1 {
-            text-align: center;
             font-size: 2rem;
             margin-bottom: 1rem;
+            text-align: left;
         }
 
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 0.5rem 0;
-        }
-
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-
-        .nav a:hover {
-            color: #ddd;
-        }
-
-        /* Main content styles */
+        /* 主内容区 */
         .main-content {
-            flex: 1;
+            grid-area: main;
             padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+            transition: transform 0.3s;
         }
 
+        /* 导航菜单 */
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .nav-item:hover {
+            background: #2c3e50;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 移动端菜单按钮 */
+        .menu-toggle {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* 关闭按钮 */
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                grid-template:
+                    "header" auto
+                    "main" 1fr
+                    / 1fr;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle,
+            .close-btn {
+                display: block;
+            }
+
+            .header h1 {
+                margin-left: 50px;
+            }
+
+            .main-content.active {
+                transform: translateX(250px);
+            }
+        }
+
+        /* 原有样式保留 */
         .welcome {
             margin-bottom: 2rem;
         }
@@ -74,12 +166,12 @@
             margin-bottom: 1rem;
         }
 
-        /* Footer styles */
         .footer {
             background-color: #333;
             color: white;
             padding: 2rem 0;
             text-align: center;
+            margin-top: auto;
         }
 
         .footer p {
@@ -109,34 +201,91 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>角色wiki</h1>
-        <nav class="nav">
-            <a href="index.html"><i class="fas fa-home"></i> 首页</a>
-            <a href="Character_setting.html"><i class="fas fa-users"></i> 人物设定</a>
-            <a href="#"><i class="fas fa-globe"></i> 世界观介绍</a>
-            <a href="#"><i class="fas fa-info-circle"></i> 关于我们</a>
-        </nav>
-    </header>
+    <div class="container">
+        <!-- 侧栏 -->
+        <aside class="sidebar">
+            <button class="close-btn">×</button>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html"><i class="fas fa-home"></i> 首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Character_setting.html"><i class="fas fa-users"></i> 人物设定</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#"><i class="fas fa-globe"></i> 世界观介绍</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#"><i class="fas fa-info-circle"></i> 关于我们</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
 
-    <main class="main-content">
-        <section class="welcome">
-            <h2>欢迎来到 角色wiki</h2>
-            <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
-            <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
-    </footer>
-    </section>
-    <footer class="footer">
-        <p>© 2025 角色wiki. 保留所有权利。</p>
-        <div class="contact">
-            <p>联系方式: <a href="空着" style="color: white;">info@character-world.com</a></p>
-            <p>群号:空着</p>
-        </div>
-        <p>关注我们:</p>
-        <div class="social-links">
-            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        </div>
-</body>            
+        <!-- 顶栏 -->
+        <header class="header">
+            <button class="menu-toggle">☰</button>
+            <h1>角色wiki</h1>
+        </header>
+
+        <!-- 主内容 -->
+        <main class="main-content">
+            <section class="welcome">
+                <h2>欢迎来到 角色wiki</h2>
+                <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
+                <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2025 角色wiki. 保留所有权利。</p>
+            <div class="contact">
+                <p>联系方式: <a href="mailto:info@character-world.com" style="color: white;">info@character-world.com</a></p>
+                <p>群号: 空着</p>
+            </div>
+            <p>关注我们:</p>
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // 切换侧栏
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('active');
+        }
+
+        // 事件监听
+        menuToggle.addEventListener('click', toggleSidebar);
+        closeBtn.addEventListener('click', toggleSidebar);
+
+        // 点击外部关闭（移动端）
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                toggleSidebar();
+            }
+        });
+
+        // 窗口大小变化处理
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+            }
+        });
+    </script>
+</body>
 </html>
