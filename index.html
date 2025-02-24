@@ -5,173 +5,31 @@
     <title>XX Wiki</title>
     <script src="https://cdn.tawk.to/your-script-id/default.js" async></script>
     
-
     <style>
-        /* 基础样式 */
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 顶栏样式 */
-        #top-bar {
-            background: var(--primary-color);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-button {
-            color: white;
-            padding: 0.5rem 1rem;
-            margin: 0 0.5rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        .nav-button:hover {
-            background: var(--secondary-color);
-        }
-
-        #search-bar {
-            padding: 0.5rem;
-            width: 300px;
-            border-radius: 20px;
-            border: 1px solid #ddd;
-        }
-
-        /* 主内容区 */
-        #main-content {
-            flex: 1;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        /* 认证页面样式 */
-        .auth-page {
-            max-width: 400px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-
-        .auth-form, .reset-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .auth-form h2, .reset-form h2 {
-            margin-top: 0;
-            text-align: center;
-        }
-
-        .auth-form input, .reset-form input {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .auth-form button, .reset-form button {
-            width: 100%;
-            padding: 0.8rem;
-            margin-top: 1rem;
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .switch-auth {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .switch-auth a {
-            color: var(--secondary-color);
-            cursor: pointer;
-        }
-
-        /* 内容卡片 */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .content-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .content-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* 编辑器样式 */
-        .editor-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        #editor {
-            width: 100%;
-            height: 400px;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            font-family: 'Consolas', monospace;
-        }
-
-        .preview-area {
-            padding: 1rem;
-            border: 1px solid #ddd;
-            margin-top: 1rem;
-            min-height: 200px;
-        }
-
-        .toolbar {
-            margin-bottom: 1rem;
-        }
-
-        .toolbar button {
-            padding: 0.3rem 0.5rem;
-            margin-right: 0.5rem;
-            cursor: pointer;
-        }
-
-        /* 页脚 */
-        footer {
-            background: var(--primary-color);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: auto;
-        }
+        /* 保持原有样式不变 */
+        :root { --primary-color: #2c3e50; --secondary-color: #3498db; }
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        #top-bar { background: var(--primary-color); padding: 1rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-button { color: white; padding: 0.5rem 1rem; margin: 0 0.5rem; cursor: pointer; border-radius: 4px; transition: background 0.3s; }
+        .nav-button:hover { background: var(--secondary-color); }
+        #search-bar { padding: 0.5rem; width: 300px; border-radius: 20px; border: 1px solid #ddd; }
+        #main-content { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .auth-page { max-width: 400px; margin: 2rem auto; padding: 2rem; }
+        .auth-form, .reset-form { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .auth-form h2, .reset-form h2 { margin-top: 0; text-align: center; }
+        .auth-form input, .reset-form input { width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .auth-form button, .reset-form button { width: 100%; padding: 0.8rem; margin-top: 1rem; background: var(--secondary-color); color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .switch-auth { text-align: center; margin-top: 1rem; }
+        .switch-auth a { color: var(--secondary-color); cursor: pointer; }
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .content-card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; cursor: pointer; transition: transform 0.2s; }
+        .content-card:hover { transform: translateY(-5px); }
+        .editor-container { max-width: 800px; margin: 2rem auto; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+        #editor { width: 100%; height: 400px; padding: 1rem; border: 1px solid #ccc; font-family: 'Consolas', monospace; }
+        .preview-area { padding: 1rem; border: 1px solid #ddd; margin-top: 1rem; min-height: 200px; }
+        .toolbar { margin-bottom: 1rem; }
+        .toolbar button { padding: 0.3rem 0.5rem; margin-right: 0.5rem; cursor: pointer; }
+        footer { background: var(--primary-color); color: white; padding: 2rem; text-align: center; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -184,136 +42,140 @@
         </div>
         <input type="text" id="search-bar" placeholder="搜索内容...">
         <div id="user-section">
-            <!-- 登录状态显示 -->
             <button class="nav-button" onclick="showPage('login')">登录</button>
             <button class="nav-button" onclick="showPage('register')">注册</button>
         </div>
     </div>
 
-    <!-- 主内容区 -->
     <div id="main-content"></div>
 
-    <!-- 页脚 -->
     <footer>
         <p>联系我们：QQ群 12345678 | QQ号 87654321</p>
         <p>2025 © XXX网站</p>
     </footer>
 
     <script>
-        // ========== 用户系统 ==========
+        // ================= 修复点1：用户系统 =================
         const UserSystem = {
-            // 获取当前用户
             getCurrent: () => localStorage.getItem('currentUser'),
-            
-            // 获取用户数据
-            getData: (username) => JSON.parse(localStorage.getItem(`user_${username}`)),
-            
-            // 更新用户数据
+            getData: (username) => JSON.parse(localStorage.getItem(`user_${username}`)) || {},
             update: (username, data) => {
-                const userData = UserSystem.getData(username) || {};
+                const userData = UserSystem.getData(username);
                 localStorage.setItem(`user_${username}`, JSON.stringify({...userData, ...data}));
+            },
+            register: (username, password) => {
+                if (localStorage.getItem(`user_${username}`)) {
+                    alert("用户名已存在");
+                    return false;
+                }
+                localStorage.setItem(`user_${username}`, JSON.stringify({
+                    username: username,
+                    password: password,
+                    articles: [],
+                    level: 1
+                }));
+                return true;
             }
         };
 
-        // ========== 文章系统 ==========
+        // ================= 修复点2：文章系统 =================
         const ArticleSystem = {
-            // 获取所有文章
             getAll: () => {
                 return Object.keys(localStorage)
                     .filter(key => key.startsWith('article_'))
                     .map(key => JSON.parse(localStorage.getItem(key)));
             },
-            
-            // 删除文章
-            delete: (articleId) => {
-                localStorage.removeItem(`article_${articleId}`);
-            }
+            delete: (articleId) => localStorage.removeItem(`article_${articleId}`)
         };
 
-        // ========== 页面功能 ==========
-        // 显示用户主页
-        function showUserPage() {
-            const username = UserSystem.getCurrent();
-            const userData = UserSystem.getData(username);
-            
-            // 构建用户页面内容
-            const content = `
-                <div class="user-profile">
-                    <h2>${username} 的主页</h2>
-                    <p>等级：Lv.${userData.level || 1}</p>
-                    
-                    <div class="bio-section">
-                        <h3>个人介绍</h3>
-                        <p>${userData.bio || '暂无介绍'}</p>
-                        <button onclick="editBio()">编辑介绍</button>
-
-// 编辑个人介绍
-function editBio() {
-    const currentBio = UserSystem.getData(UserSystem.getCurrent()).bio || '';
-    const newBio = prompt('请输入新的个人介绍：', currentBio);
-    if(newBio) {
-        UserSystem.update(UserSystem.getCurrent(), { bio: newBio });
-        showUserPage(); // 刷新显示
-    }
-}
-
-// 获取文章标题
-function getArticleTitle(articleId) {
-    return JSON.parse(localStorage.getItem(`article_${articleId}`))?.title || '未知标题';
-}
-                    </div>
-                    
-                    <div class="my-articles">
-                        <h3>我的投稿</h3>
-                        ${userData.articles?.map(id => `
-                            <div class="article-card">
-                                <h4>${getArticleTitle(id)}</h4>
-                                <button onclick="deleteArticle('${id}')">删除</button>
+        // ================= 修复点3：认证系统 =================
+        const Auth = {
+            showLogin: () => {
+                document.getElementById('main-content').innerHTML = `
+                    <div class="auth-page">
+                        <div class="auth-form">
+                            <h2>登录</h2>
+                            <input type="text" id="login-username" placeholder="用户名">
+                            <input type="password" id="login-password" placeholder="密码">
+                            <button onclick="Auth.handleLogin()">登录</button>
+                            <div class="switch-auth">
+                                <a onclick="showPage('register')">没有账号？立即注册</a><br>
+                                <a onclick="showPage('reset-password')">忘记密码？</a>
                             </div>
-                        `).join('') || '<p>暂无投稿</p>'}
-                    </div>
-                </div>`;
-            
-            document.getElementById('main-content').innerHTML = content;
-        }
+                        </div>
+                    </div>`;
+            },
 
-        // ========== 核心功能 ==========
-        // 搜索功能（已修复）
-        document.getElementById('search-bar').addEventListener('input', function(e) {
-            const keyword = e.target.value.toLowerCase();
-            document.querySelectorAll('.content-card').forEach(card => {
-                const text = card.textContent.toLowerCase();
-                card.style.display = text.includes(keyword) ? 'block' : 'none';
-            });
-        });
+            showRegister: () => {
+                document.getElementById('main-content').innerHTML = `
+                    <div class="auth-page">
+                        <div class="auth-form">
+                            <h2>注册</h2>
+                            <input type="text" id="reg-username" placeholder="用户名">
+                            <input type="password" id="reg-password" placeholder="密码">
+                            <input type="password" id="reg-confirm" placeholder="确认密码">
+                            <button onclick="Auth.handleRegister()">注册</button>
+                            <div class="switch-auth">
+                                <a onclick="showPage('login')">已有账号？立即登录</a>
+                            </div>
+                        </div>
+                    </div>`;
+            },
 
-        // 删除文章功能
-        function deleteArticle(articleId) {
-            if(confirm('确定要删除这篇文章吗？')) {
-                ArticleSystem.delete(articleId);
-                showUserPage(); // 刷新用户页面
-            }
-        }
+            handleLogin: () => {
+                const username = document.getElementById('login-username').value;
+                const password = document.getElementById('login-password').value;
+                const userData = UserSystem.getData(username);
 
-        // ========== 初始化 ==========
-        window.onload = () => {
-            // 检查登录状态
-            if(UserSystem.getCurrent()) {
-                document.getElementById('user-section').innerHTML = `
-                    <button class="nav-button" onclick="showUserPage()">${UserSystem.getCurrent()}</button>
-                    <button class="nav-button" onclick="logout()">退出</button>`;
-            } else {
-                    userSection.innerHTML = `
-                        <button class="nav-button" onclick="showPage('login')">登录</button>
-                        <button class="nav-button" onclick="showPage('register')">注册</button>`;
+                if (userData && userData.password === password) {
+                    localStorage.setItem('currentUser', username);
+                    updateUserSection();
+                    showPage('home');
+                } else {
+                    alert("用户名或密码错误");
+                }
+            },
+
+            handleRegister: () => {
+                const username = document.getElementById('reg-username').value;
+                const password = document.getElementById('reg-password').value;
+                const confirm = document.getElementById('reg-confirm').value;
+
+                if (password !== confirm) {
+                    alert("两次输入的密码不一致");
+                    return;
+                }
+
+                if (UserSystem.register(username, password)) {
+                    alert("注册成功，请登录");
+                    showPage('login');
                 }
             }
         };
+
+        // ================= 修复点4：用户界面更新 =================
+        function updateUserSection() {
+            const userSection = document.getElementById('user-section');
+            const currentUser = UserSystem.getCurrent();
             
-            // 加载首页内容
+            if (currentUser) {
+                userSection.innerHTML = `
+                    <button class="nav-button" onclick="showUserPage()">${currentUser}</button>
+                    <button class="nav-button" onclick="logout()">退出</button>`;
+            } else {
+                userSection.innerHTML = `
+                    <button class="nav-button" onclick="showPage('login')">登录</button>
+                    <button class="nav-button" onclick="showPage('register')">注册</button>`;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            updateUserSection();
             showPage('home');
-        };
-        // 页面导航系统
+        }
+
+        // ================= 修复点5：页面导航系统 =================
         function showPage(page) {
             const pages = {
                 home: () => {
@@ -332,115 +194,187 @@ function getArticleTitle(articleId) {
                 upload: () => Editor.show(),
                 login: () => Auth.showLogin(),
                 register: () => Auth.showRegister(),
-                'reset-password': () => Auth.showResetPassword()
+                'reset-password': () => {
+                    document.getElementById('main-content').innerHTML = `
+                        <div class="auth-page">
+                            <div class="reset-form">
+                                <h2>重置密码</h2>
+                                <input type="text" id="reset-username" placeholder="用户名">
+                                <input type="password" id="new-password" placeholder="新密码">
+                                <button onclick="handleResetPassword()">重置密码</button>
+                            </div>
+                        </div>`;
+                }
             };
 
-            pages[page] ? pages[page]() : console.error('未知页面:', page);
-        }
-
-        // 文章编辑系统
-        const Editor = {
-            currentArticleId: null,
-
-            show: (articleId) => {
-                Editor.currentArticleId = articleId;
-                document.getElementById('main-content').innerHTML = `
-                    <div class="editor-container">
-                        <div class="toolbar">
-                            <button onclick="Editor.insertText('== ', ' ==')">标题</button>
-                            <button onclick="Editor.insertText('[[', ']]')">链接</button>
-                            <button onclick="Editor.insertText('* ')">列表</button>
-                        </div>
-                        <textarea id="editor"></textarea>
-                        <div class="preview-area" id="preview"></div>
-                        <button onclick="Editor.save()">保存文章</button>
-                    </div>`;
-
-                if (articleId) {
-                    const article = JSON.parse(localStorage.getItem(`article_${articleId}`));
-                    document.getElementById('editor').value = article.rawContent;
-                }
-                document.getElementById('editor').addEventListener('input', Editor.updatePreview);
-            },
-
-            insertText: (before, after = '') => {
-                const editor = document.getElementById('editor');
-                const start = editor.selectionStart;
-                const end = editor.selectionEnd;
-                editor.value = editor.value.slice(0, start) + before + 
-                              editor.value.slice(start, end) + after + 
-                              editor.value.slice(end);
-                editor.focus();
-                editor.selectionStart = start + before.length;
-                editor.selectionEnd = end + before.length;
-                Editor.updatePreview();
-            },
-
-            updatePreview: () => {
-                const rawContent = document.getElementById('editor').value;
-                document.getElementById('preview').innerHTML = parseWikiCode(rawContent);
-            },
-
-            save: () => {
-                const rawContent = document.getElementById('editor').value;
-                const article = {
-                    id: Editor.currentArticleId || Date.now(),
-                    title: rawContent.split('\n')[0].replace(/=/g, '').trim(),
-                    rawContent: rawContent,
-                    htmlContent: parseWikiCode(rawContent),
-                    author: localStorage.getItem('currentUser'),
-                    timestamp: new Date().toISOString()
-                };
-
-                localStorage.setItem(`article_${article.id}`, JSON.stringify(article));
-                alert('保存成功');
-                showPage('home');
+            if (pages[page]) {
+                pages[page]();
+            } else {
+                console.error('未知页面:', page);
             }
-        };
-
-        // 辅助功能
-        function parseWikiCode(text) {
-            return text
-                .replace(/===(.*?)===/g, '<h3>$1</h3>')
-                .replace(/==(.*?)==/g, '<h2>$1</h2>')
-                .replace(/=(.*?)=/g, '<h1>$1</h1>')
-                .replace(/\[\[(.*?)\]\]/g, (_, p1) => {
-                    const [display, link] = p1.split('|');
-                    return `<a href="#${link || display}">${display}</a>`;
-                })
-                .replace(/\n\*(.*)/g, '<li>$1</li>')
-                .replace(/'''(.*?)'''/g, '<strong>$1</strong>')
-                .replace(/''(.*?)''/g, '<em>$1</em>');
         }
 
-        function loadContent() {
-            const container = document.getElementById('content-container');
-            const articles = [];
+        // ================= 剩余功能实现 =================
+       <script>
+    // ================= 文章编辑系统 =================
+    const Editor = {
+        currentArticleId: null,
+
+        show: (articleId) => {
+            Editor.currentArticleId = articleId;
+            document.getElementById('main-content').innerHTML = `
+                <div class="editor-container">
+                    <div class="toolbar">
+                        <button onclick="Editor.insertText('== ', ' ==')">标题</button>
+                        <button onclick="Editor.insertText('[[', ']]')">链接</button>
+                        <button onclick="Editor.insertText('* ')">列表</button>
+                    </div>
+                    <textarea id="editor"></textarea>
+                    <div class="preview-area" id="preview"></div>
+                    <button onclick="Editor.save()">保存文章</button>
+                </div>`;
+
+            if (articleId) {
+                const article = JSON.parse(localStorage.getItem(`article_${articleId}`));
+                document.getElementById('editor').value = article.rawContent;
+            }
+            document.getElementById('editor').addEventListener('input', Editor.updatePreview);
+            Editor.updatePreview();
+        },
+
+        insertText: (before, after = '') => {
+            const editor = document.getElementById('editor');
+            const start = editor.selectionStart;
+            const end = editor.selectionEnd;
+            editor.value = editor.value.slice(0, start) + before + 
+                          editor.value.slice(start, end) + after + 
+                          editor.value.slice(end);
+            editor.focus();
+            editor.selectionStart = start + before.length;
+            editor.selectionEnd = end + before.length;
+            Editor.updatePreview();
+        },
+
+        updatePreview: () => {
+            const rawContent = document.getElementById('editor').value;
+            document.getElementById('preview').innerHTML = parseWikiCode(rawContent);
+        },
+
+        save: () => {
+            const rawContent = document.getElementById('editor').value;
+            const article = {
+                id: Editor.currentArticleId || Date.now(),
+                title: rawContent.split('\n')[0].replace(/=/g, '').trim(),
+                rawContent: rawContent,
+                htmlContent: parseWikiCode(rawContent),
+                author: localStorage.getItem('currentUser'),
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem(`article_${article.id}`, JSON.stringify(article));
             
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('article_')) {
-                    articles.push(JSON.parse(localStorage.getItem(key)));
-                }
+            // 更新用户文章列表
+            const user = UserSystem.getCurrent();
+            const userData = UserSystem.getData(user);
+            if (!userData.articles.includes(article.id)) {
+                userData.articles.push(article.id);
+                UserSystem.update(user, { articles: userData.articles });
             }
-
-            container.innerHTML = articles
-                .sort(() => Math.random() - 0.5)
-                .map(article => `
-                    <div class="content-card" onclick="showDetail('${article.id}')">
-                        <h3>${article.title}</h3>
-                        <p>作者：${article.author}</p>
-                        ${article.htmlContent.substring(0, 100)}...
-                    </div>`
-                ).join('');
+            
+            alert('保存成功');
+            showPage('home');
         }
+    };
 
+    // ================= 内容加载 =================
+    function loadContent() {
+        const container = document.getElementById('content-container');
+        const articles = ArticleSystem.getAll();
+        
+        container.innerHTML = articles
+            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+            .map(article => `
+                <div class="content-card" onclick="showDetail('${article.id}')">
+                    <h3>${article.title}</h3>
+                    <p>作者：${article.author}</p>
+                    ${article.htmlContent.substring(0, 100)}...
+                </div>`
+            ).join('');
+    }
+
+    // ================= 辅助函数 =================
+    function parseWikiCode(text) {
+        return text
+            .replace(/===(.*?)===/g, '<h3>$1</h3>')
+            .replace(/==(.*?)==/g, '<h2>$1</h2>')
+            .replace(/=(.*?)=/g, '<h1>$1</h1>')
+            .replace(/\[\[(.*?)\]\]/g, (_, p1) => {
+                const [display, link] = p1.split('|');
+                return `<a href="#${link || display}">${display}</a>`;
+            })
+            .replace(/\n\*(.*)/g, '<li>$1</li>')
+            .replace(/'''(.*?)'''/g, '<strong>$1</strong>')
+            .replace(/''(.*?)''/g, '<em>$1</em>');
+    }
+
+    // ================= 用户主页功能 =================
+    function showUserPage() {
+        const username = UserSystem.getCurrent();
+        const userData = UserSystem.getData(username);
+        
+        document.getElementById('main-content').innerHTML = `
+            <div class="user-profile">
+                <h2>${username} 的主页</h2>
+                <p>等级：Lv.${userData.level || 1}</p>
+                
+                <div class="bio-section">
+                    <h3>个人介绍</h3>
+                    <p>${userData.bio || '暂无介绍'}</p>
+                    <button onclick="editBio()">编辑介绍</button>
+                </div>
+                
+                <div class="my-articles">
+                    <h3>我的投稿</h3>
+                    ${userData.articles?.length ? 
+                        userData.articles.map(id => `
+                            <div class="article-card">
+                                <h4>${getArticleTitle(id)}</h4>
+                                <button onclick="deleteArticle('${id}')">删除</button>
+                            </div>
+                        `).join('') : '<p>暂无投稿</p>'}
+                </div>
+            </div>`;
+    }
+
+    function editBio() {
+        const currentBio = UserSystem.getData(UserSystem.getCurrent()).bio || '';
+        const newBio = prompt('请输入新的个人介绍：', currentBio);
+        if(newBio !== null) {
+            UserSystem.update(UserSystem.getCurrent(), { bio: newBio });
+            showUserPage();
+        }
+    }
+
+    function getArticleTitle(articleId) {
+        const article = JSON.parse(localStorage.getItem(`article_${articleId}`));
+        return article?.title || '未知标题';
+    }
+
+    function deleteArticle(articleId) {
+        if(confirm('确定要删除这篇文章吗？')) {
+            ArticleSystem.delete(articleId);
+            const user = UserSystem.getCurrent();
+            const userData = UserSystem.getData(user);
+            userData.articles = userData.articles.filter(id => id !== articleId);
+            UserSystem.update(user, { articles: userData.articles });
+            showUserPage();
+        }
+    }
         // 初始化
         window.onload = () => {
-            UI.updateUserSection();
+            updateUserSection();
             showPage('home');
             
-            // 搜索功能
             document.getElementById('search-bar').addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
                 document.querySelectorAll('.content-card').forEach(card => {
