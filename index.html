@@ -5,283 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>角色wiki - 首页</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        /* 新增布局容器 */
-        .container {
-            display: grid;
-            grid-template:
-                "sidebar header" auto
-                "sidebar main" 1fr
-                / auto 1fr;
-            min-height: 100vh;
-        }
-
-        /* 侧栏样式 */
-        .sidebar {
-            grid-area: sidebar;
-            background: #34495e;
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            transition: transform 0.3s;
-            z-index: 20;
-            color: white;
-            padding: 20px;
-        }
-
-        /* 顶栏样式 */
-        .header {
-            grid-area: header;
-            background-color: #333;
-            color: white;
-            padding: 1rem 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 10;
-            position: relative;
-        }
-
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-
-        /* 主内容区 */
-        .main-content {
-            grid-area: main;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            transition: transform 0.3s;
-        }
-
-        /* 导航菜单 */
-        .nav-menu {
-            list-style: none;
-            padding: 20px 0;
-        }
-
-        .nav-item {
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .nav-item:hover {
-            background: #2c3e50;
-        }
-
-        .nav-item a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* 移动端菜单按钮 */
-        .menu-toggle {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            display: none;
-        }
-
-        /* 关闭按钮 */
-        .close-btn {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            display: none;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .container {
-                grid-template:
-                    "header" auto
-                    "main" 1fr
-                    / 1fr;
-            }
-
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .menu-toggle,
-            .close-btn {
-                display: block;
-            }
-
-            .header h1 {
-                margin-left: 50px;
-            }
-
-            .main-content.active {
-                transform: translateX(250px);
-            }
-        }
-
-        /* 原有样式保留 */
-        .welcome {
-            margin-bottom: 2rem;
-        }
-
-        .welcome h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .welcome p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: auto;
-        }
-
-        .footer p {
-            margin-bottom: 1rem;
-        }
-
-        .footer .contact {
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: #ddd;
-        }
-        /* 新增iOS兼容样式 */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                min-height: -webkit-fill-available;
-            }
-        }
-
-        .container {
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 重构侧栏系统 */
-        .sidebar-container {
-            position: fixed;
-            left: -100%;
-            top: 0;
-            bottom: 0;
-            width: 80%;
-            max-width: 300px;
-            background: #34495e;
-            z-index: 1000;
-            transition: transform 0.3s;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .sidebar-container.active {
-            transform: translateX(100%);
-        }
-
-        /* 新增遮罩层 */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-
-        /* 优化顶栏定位 */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 800;
-        }
-
-        /* 重构主内容区 */
-        .main-wrapper {
-            flex: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* 修复页脚定位 */
-        .footer {
-            position: sticky;
-            bottom: 0;
-            z-index: 800;
-        }
-
-        @media (min-width: 769px) {
-            .sidebar-container {
-                position: static;
-                width: 250px;
-                transform: none !important;
-            }
-            
-            .main-wrapper {
-                margin-left: 250px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <!-- 侧栏 -->
-        <aside class="sidebar">
-            <button class="close-btn">×</button>
-            <nav>
+        <!-- 侧栏遮罩 -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- 侧边栏 -->
+        <aside class="sidebar-container">
+            <nav class="sidebar">
+                <button class="close-btn">×</button>
                 <ul class="nav-menu">
                     <li class="nav-item">
                         <a href="index.html"><i class="fas fa-home"></i> 首页</a>
@@ -299,130 +33,39 @@
             </nav>
         </aside>
 
-        <!-- 顶栏 -->
-        <header class="header">
-            <button class="menu-toggle">☰</button>
-            <h1>角色wiki</h1>
-        </header>
+        <!-- 主内容区 -->
+        <div class="main-wrapper">
+            <!-- 顶栏 -->
+            <header class="header">
+                <button class="menu-toggle">☰</button>
+                <h1>角色wiki</h1>
+            </header>
 
-        <!-- 主内容 -->
-        <main class="main-content">
-            <section class="welcome">
-                <h2>欢迎来到 角色wiki</h2>
-                <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
-                <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
-            </section>
-        </main>
+            <!-- 主要内容 -->
+            <main class="main-content">
+                <section class="welcome">
+                    <h2>欢迎来到 角色wiki</h2>
+                    <p>在这里，你可以找到丰富的人物设定、详细的世界观介绍以及更多精彩内容。</p>
+                    <p>探索我们的虚拟世界，了解每一个角色的故事。</p>
+                </section>
+            </main>
 
-        <!-- 页脚 -->
-        <footer class="footer">
-            <p>© 2025 角色wiki. 保留所有权利。</p>
-            <div class="contact">
-                <p>联系方式: <a href="mailto:info@character-world.com" style="color: white;">info@character-world.com</a></p>
-                <p>群号: 空着</p>
-            </div>
-            <p>关注我们:</p>
-            <div class="social-links">
-                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-            </div>
-        </footer>
+            <!-- 页脚 -->
+            <footer class="footer">
+                <p>© 2025 角色wiki. 保留所有权利。</p>
+                <div class="contact">
+                    <p>联系方式: <a href="mailto:info@character-world.com">info@character-world.com</a></p>
+                    <p>群号: 空着</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </footer>
+        </div>
     </div>
 
-    <script>
-        const sidebar = document.querySelector('.sidebar');
-        const mainContent = document.querySelector('.main-content');
-        const menuToggle = document.querySelector('.menu-toggle');
-        const closeBtn = document.querySelector('.close-btn');
-
-        // 切换侧栏
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            mainContent.classList.toggle('active');
-        }
-
-        // 事件监听
-        menuToggle.addEventListener('click', toggleSidebar);
-        closeBtn.addEventListener('click', toggleSidebar);
-
-        // 点击外部关闭（移动端）
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(e.target) && 
-                !menuToggle.contains(e.target)) {
-                toggleSidebar();
-            }
-        });
-
-        // 窗口大小变化处理
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-                mainContent.classList.remove('active');
-            }
-        });
-        // 增强iOS触摸处理
-        let touchStartX = 0;
-        const TOUCH_THRESHOLD = 30;
-
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-        });
-
-        document.addEventListener('touchend', e => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const deltaX = touchEndX - touchStartX;
-
-            if (Math.abs(deltaX) > TOUCH_THRESHOLD) {
-                if (deltaX > 0 && !sidebar.classList.contains('active')) {
-                    toggleSidebar();
-                } else if (deltaX < 0 && sidebar.classList.contains('active')) {
-                    toggleSidebar();
-                }
-            }
-        });
-
-        // 改进侧栏切换逻辑
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar-container');
-            const overlay = document.querySelector('.sidebar-overlay');
-            
-            sidebar.classList.toggle('active');
-            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
-            
-            // 锁定背景滚动
-            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-        }
-
-        // 点击遮罩层关闭
-        document.querySelector('.sidebar-overlay').addEventListener('click', toggleSidebar);
-    </script>
-    @supports (-webkit-touch-callout: none) {
-    body {
-        min-height: -webkit-fill-available;
-    }
-}
-.container {
-    min-height: -webkit-fill-available;
-}
-    .sidebar-container {
-    -webkit-overflow-scrolling: touch; /* 启用弹性滚动 */
-    width: 80%; /* 更符合iOS设计规范 */
-    max-width: 300px;
-}
-    document.addEventListener('touchstart', ...);
-document.addEventListener('touchend', ...);
-    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-    .header, .footer {
-    position: sticky;
-    z-index: 800;
-}
-.sidebar-container {
-    z-index: 1000;
-}
-.sidebar-overlay {
-    z-index: 999;
-}
+    <script src="script.js"></script>
 </body>
 </html>
