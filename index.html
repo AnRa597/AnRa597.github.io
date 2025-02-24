@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>XX Wiki</title>
+    <!-- 第三方聊天室 (需替换your-script-id) -->
     <script src="https://cdn.tawk.to/your-script-id/default.js" async></script>
-     <!-- CSS 样式 -->
+    
     <style>
         /* 基础样式 */
         :root {
@@ -45,6 +46,13 @@
             background: var(--secondary-color);
         }
 
+        #search-bar {
+            padding: 0.5rem;
+            width: 300px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+        }
+
         /* 主内容区 */
         #main-content {
             flex: 1;
@@ -54,21 +62,53 @@
             width: 100%;
         }
 
-        .announcement {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
+        /* 认证页面样式 */
+        .auth-page {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
         }
 
-        .ad-banner {
-            background: #e9ecef;
-            height: 150px;
-            margin: 2rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .auth-form, .reset-form {
+            background: white;
+            padding: 2rem;
             border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .auth-form h2, .reset-form h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .auth-form input, .reset-form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .auth-form button, .reset-form button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .switch-auth {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .switch-auth a {
+            color: var(--secondary-color);
+            cursor: pointer;
         }
 
         /* 内容卡片 */
@@ -88,24 +128,6 @@
 
         .content-card:hover {
             transform: translateY(-5px);
-        }
-
-        /* 页脚 */
-        footer {
-            background: var(--primary-color);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: auto;
-        }
-
-        /* 登录表单 */
-        .login-form {
-            max-width: 400px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
         }
 
         /* 编辑器样式 */
@@ -141,10 +163,19 @@
             margin-right: 0.5rem;
             cursor: pointer;
         }
+
+        /* 页脚 */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
-    <!-- 页面结构 -->
+    <!-- 顶栏 -->
     <div id="top-bar">
         <div>
             <button class="nav-button" onclick="showPage('home')">首页</button>
@@ -153,41 +184,91 @@
         </div>
         <input type="text" id="search-bar" placeholder="搜索内容...">
         <div id="user-section">
-            <button class="nav-button" id="login-btn" onclick="handleAuth()">登录/注册</button>
+            <button class="nav-button" onclick="showPage('login')">登录</button>
+            <button class="nav-button" onclick="showPage('register')">注册</button>
         </div>
     </div>
 
-    <div id="main-content">
-        <!-- 各页面内容 -->
-    </div>
+    <!-- 主内容区 -->
+    <div id="main-content"></div>
 
+    <!-- 页脚 -->
     <footer>
         <p>联系我们：QQ群 12345678 | QQ号 87654321</p>
         <p>2025 © XXX网站</p>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // 用户认证模块
+        // 用户认证系统
         const Auth = {
-            showForm: () => {
-                const form = `
-                    <div class="login-form">
-                        <h2>用户登录</h2>
-                        <input type="text" id="username" placeholder="用户名">
-                        <input type="password" id="password" placeholder="密码">
-                        <button onclick="Auth.login()">登录</button>
-                        <button onclick="Auth.register()">注册</button>
+            // 显示登录页
+            showLogin: () => {
+                document.getElementById('main-content').innerHTML = `
+                    <div class="auth-page">
+                        <div class="auth-form">
+                            <h2>用户登录</h2>
+                            <input type="text" id="login-username" placeholder="用户名">
+                            <input type="password" id="login-password" placeholder="密码">
+                            <button onclick="Auth.handleLogin()">登录</button>
+                            <div class="switch-auth">
+                                没有账号？<a onclick="showPage('register')">立即注册</a>
+                                <br>
+                                <a onclick="showPage('reset-password')">忘记密码？</a>
+                            </div>
+                        </div>
                     </div>`;
-                document.getElementById('main-content').innerHTML = form;
             },
 
-            login: () => {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
+            // 显示注册页
+            showRegister: () => {
+                document.getElementById('main-content').innerHTML = `
+                    <div class="auth-page">
+                        <div class="auth-form">
+                            <h2>用户注册</h2>
+                            <input type="text" id="reg-username" placeholder="用户名">
+                            <input type="password" id="reg-password" placeholder="密码">
+                            <input type="password" id="reg-confirm" placeholder="确认密码">
+                            <button onclick="Auth.handleRegister()">注册</button>
+                            <div class="switch-auth">
+                                已有账号？<a onclick="showPage('login')">立即登录</a>
+                            </div>
+                        </div>
+                    </div>`;
+            },
+
+            // 显示重置密码页
+            showResetPassword: () => {
+                document.getElementById('main-content').innerHTML = `
+                    <div class="auth-page">
+                        <div class="reset-form">
+                            <h2>重置密码</h2>
+                            <div class="reset-steps active" id="step1">
+                                <input type="text" id="reset-username" placeholder="用户名">
+                                <button onclick="Auth.verifyUser()">下一步</button>
+                                <div class="switch-auth">
+                                    <a onclick="showPage('login')">返回登录</a>
+                                </div>
+                            </div>
+                            <div class="reset-steps" id="step2">
+                                <input type="password" id="new-password" placeholder="新密码">
+                                <input type="password" id="confirm-password" placeholder="确认密码">
+                                <button onclick="Auth.handleReset()">提交</button>
+                                <div class="switch-auth">
+                                    <a onclick="document.getElementById('step2').classList.remove('active'); 
+                                              document.getElementById('step1').classList.add('active')">上一步</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            },
+
+            // 处理登录
+            handleLogin: () => {
+                const username = document.getElementById('login-username').value;
+                const password = document.getElementById('login-password').value;
                 const user = JSON.parse(localStorage.getItem(`user_${username}`));
-                
-                if(user && user.password === password) {
+
+                if (user && user.password === password) {
                     localStorage.setItem('currentUser', username);
                     UI.updateUserSection();
                     showPage('home');
@@ -196,23 +277,46 @@
                 }
             },
 
-            register: () => {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                if(localStorage.getItem(`user_${username}`)) {
+            // 处理注册
+            handleRegister: () => {
+                const username = document.getElementById('reg-username').value;
+                const password = document.getElementById('reg-password').value;
+                const confirm = document.getElementById('reg-confirm').value;
+
+                if (password !== confirm) {
+                    alert('两次密码输入不一致');
+                    return;
+                }
+
+                if (localStorage.getItem(`user_${username}`)) {
                     alert('用户名已存在');
                     return;
                 }
-                
-                localStorage.setItem(`user_${username}`, JSON.stringify({
-                    password: password
-                }));
-                
+
+                localStorage.setItem(`user_${username}`, JSON.stringify({ password }));
                 alert('注册成功');
-                Auth.login();
+                showPage('login');
             },
 
+            // 处理密码重置
+            handleReset: () => {
+                const username = document.getElementById('reset-username').value;
+                const newPass = document.getElementById('new-password').value;
+                const confirmPass = document.getElementById('confirm-password').value;
+
+                if (newPass !== confirmPass) {
+                    alert('两次密码输入不一致');
+                    return;
+                }
+
+                const user = JSON.parse(localStorage.getItem(`user_${username}`));
+                user.password = newPass;
+                localStorage.setItem(`user_${username}`, JSON.stringify(user));
+                alert('密码重置成功');
+                showPage('login');
+            },
+
+            // 退出登录
             logout: () => {
                 localStorage.removeItem('currentUser');
                 UI.updateUserSection();
@@ -220,53 +324,25 @@
             }
         };
 
-        // 用户界面模块
+        // 用户界面管理
         const UI = {
             updateUserSection: () => {
                 const userSection = document.getElementById('user-section');
                 const currentUser = localStorage.getItem('currentUser');
                 
-                if(currentUser) {
+                if (currentUser) {
                     userSection.innerHTML = `
-                        <div class="user-menu">
-                            <span class="nav-button">${currentUser}</span>
-                            <button class="nav-button" onclick="Auth.logout()">退出</button>
-                        </div>`;
+                        <span class="nav-button">${currentUser}</span>
+                        <button class="nav-button" onclick="Auth.logout()">退出</button>`;
                 } else {
-                    userSection.innerHTML = '<button class="nav-button" onclick="handleAuth()">登录/注册</button>';
+                    userSection.innerHTML = `
+                        <button class="nav-button" onclick="showPage('login')">登录</button>
+                        <button class="nav-button" onclick="showPage('register')">注册</button>`;
                 }
             }
         };
 
-        // 搜索模块
-        const Search = {
-            init: () => {
-                document.getElementById('search-bar').addEventListener('input', (e) => {
-                    const term = e.target.value.toLowerCase();
-                    const cards = document.querySelectorAll('.content-card');
-                    
-                    cards.forEach(card => {
-                        const title = card.querySelector('h3').textContent.toLowerCase();
-                        const content = card.querySelector('p').textContent.toLowerCase();
-                        card.style.display = (title.includes(term) || content.includes(term)) 
-                            ? 'block' 
-                            : 'none';
-                    });
-                });
-            }
-        };
-
-        // 初始化
-        window.onload = () => {
-            UI.updateUserSection();
-            Search.init();
-            showPage('home');
-        };
-    </script>
-
-    <!-- 其他功能脚本 -->
-    <script>
-        // 页面导航模块
+        // 页面导航系统
         function showPage(page) {
             const pages = {
                 home: () => {
@@ -275,35 +351,26 @@
                             <h2>网站公告</h2>
                             <p>欢迎来到XX Wiki！当前版本为测试版，欢迎反馈建议。</p>
                         </div>
-                        <div class="ad-banner">
-                            <p>广告位招租</p>
-                        </div>
+                        <div class="ad-banner">广告位招租</div>
                         <div class="content-grid" id="content-container"></div>`;
                     loadContent();
                 },
                 about: () => {
                     document.getElementById('main-content').innerHTML = `<h2>关于我们</h2>`;
                 },
-                upload: () => {
-                    showEditor();
-                }
+                upload: () => Editor.show(),
+                login: () => Auth.showLogin(),
+                register: () => Auth.showRegister(),
+                'reset-password': () => Auth.showResetPassword()
             };
-            
+
             pages[page] ? pages[page]() : console.error('未知页面:', page);
         }
 
-        // 处理认证相关操作
-        function handleAuth() {
-            Auth.showForm();
-        }
-    </script>
-
-    <!-- 文章编辑功能脚本 -->
-    <script>
-        // 文章编辑模块
+        // 文章编辑系统
         const Editor = {
             currentArticleId: null,
-            
+
             show: (articleId) => {
                 Editor.currentArticleId = articleId;
                 document.getElementById('main-content').innerHTML = `
@@ -317,22 +384,99 @@
                         <div class="preview-area" id="preview"></div>
                         <button onclick="Editor.save()">保存文章</button>
                     </div>`;
-                
-                if(articleId) {
+
+                if (articleId) {
                     const article = JSON.parse(localStorage.getItem(`article_${articleId}`));
                     document.getElementById('editor').value = article.rawContent;
                 }
-                
-                Editor.addPreviewListener();
+                document.getElementById('editor').addEventListener('input', Editor.updatePreview);
             },
 
             insertText: (before, after = '') => {
-                // 插入文本逻辑
+                const editor = document.getElementById('editor');
+                const start = editor.selectionStart;
+                const end = editor.selectionEnd;
+                editor.value = editor.value.slice(0, start) + before + 
+                              editor.value.slice(start, end) + after + 
+                              editor.value.slice(end);
+                editor.focus();
+                editor.selectionStart = start + before.length;
+                editor.selectionEnd = end + before.length;
+                Editor.updatePreview();
+            },
+
+            updatePreview: () => {
+                const rawContent = document.getElementById('editor').value;
+                document.getElementById('preview').innerHTML = parseWikiCode(rawContent);
             },
 
             save: () => {
-                // 保存文章逻辑
+                const rawContent = document.getElementById('editor').value;
+                const article = {
+                    id: Editor.currentArticleId || Date.now(),
+                    title: rawContent.split('\n')[0].replace(/=/g, '').trim(),
+                    rawContent: rawContent,
+                    htmlContent: parseWikiCode(rawContent),
+                    author: localStorage.getItem('currentUser'),
+                    timestamp: new Date().toISOString()
+                };
+
+                localStorage.setItem(`article_${article.id}`, JSON.stringify(article));
+                alert('保存成功');
+                showPage('home');
             }
+        };
+
+        // 辅助功能
+        function parseWikiCode(text) {
+            return text
+                .replace(/===(.*?)===/g, '<h3>$1</h3>')
+                .replace(/==(.*?)==/g, '<h2>$1</h2>')
+                .replace(/=(.*?)=/g, '<h1>$1</h1>')
+                .replace(/\[\[(.*?)\]\]/g, (_, p1) => {
+                    const [display, link] = p1.split('|');
+                    return `<a href="#${link || display}">${display}</a>`;
+                })
+                .replace(/\n\*(.*)/g, '<li>$1</li>')
+                .replace(/'''(.*?)'''/g, '<strong>$1</strong>')
+                .replace(/''(.*?)''/g, '<em>$1</em>');
+        }
+
+        function loadContent() {
+            const container = document.getElementById('content-container');
+            const articles = [];
+            
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('article_')) {
+                    articles.push(JSON.parse(localStorage.getItem(key)));
+                }
+            }
+
+            container.innerHTML = articles
+                .sort(() => Math.random() - 0.5)
+                .map(article => `
+                    <div class="content-card" onclick="showDetail('${article.id}')">
+                        <h3>${article.title}</h3>
+                        <p>作者：${article.author}</p>
+                        ${article.htmlContent.substring(0, 100)}...
+                    </div>`
+                ).join('');
+        }
+
+        // 初始化
+        window.onload = () => {
+            UI.updateUserSection();
+            showPage('home');
+            
+            // 搜索功能
+            document.getElementById('search-bar').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                document.querySelectorAll('.content-card').forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    card.style.display = text.includes(term) ? 'block' : 'none';
+                });
+            });
         };
     </script>
 </body>
