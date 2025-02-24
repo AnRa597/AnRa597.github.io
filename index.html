@@ -109,6 +109,189 @@
             border: 1px solid #ddd;
             border-radius: 8px;
         }
+        <!-- 在原有代码基础上新增以下内容 -->
+
+<style>
+/* 新增编辑器样式 */
+.ed-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#editor {
+    width: 100%;
+    height: 400px;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    font-family: 'Consolas', monospace;
+}
+
+.preview-area {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    margin-top: 1rem;
+    min-height: 200px;
+}
+
+.toolbar {
+    margin-bottom: 1rem;
+}
+
+.toolbar button {
+    padding: 0.3rem 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+</style>
+
+<!-- 在main-content中添加编辑器界面 -->
+<div id="edit-page" style="display: none;">
+    <div class="editor-container">
+        <div class="toolbar">
+            <button onclick="insertText('== ', ' ==')">标题</button>
+            <button onclick="insertText('[[', ']]')">链接</button>
+            <button onclick="insertText('* ')">列表</button>
+            <button onclick="insertText("''", "''")">斜体</button>
+            <button onclick="insertText("'''", "'''")">粗体</button>
+        </div>
+        <textarea id="editor" placeholder="输入内容（支持Wiki短代码）..."></textarea>
+        <div class="preview-area" id="preview"></div>
+        <button onclick="saveArticle()" style="margin-top: 1rem;">保存文章</button>
+    </div>
+</div>
+
+<script>
+// 短代码解析器
+function parseWikiCode(text) {
+    // 转义HTML特殊字符
+    text = text.replace(/&/g, "&amp;")
+               .replace(/</g, "&lt;")
+               .replace(/>/g, "&gt;");
+
+    // 解析标题
+    text = text.replace(/===(.*?)===/g, '<h3>$1</h3>')
+               .replace(/==(.*?)==/g, '<h2>$1</h2>')
+               .replace(/=(.*?)=/g, '<h1>$1</h1>');
+
+    // 解析链接
+    text = text.replace(/\[\[(.*?)\]\]/g, (match, p1) => {
+        const [display, link] = p1.split('|');
+        return `<a href="#${link || display}" class="wiki-link">${display}</a>`;
+    });
+
+    // 解析列表
+    text = text.replace(/^\* (.*$)/gm, '<li>$1</li>')
+               .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+
+    // 解析文本样式
+    text = text.replace(/'''(.*?)'''/g, '<strong>$1</strong>')
+               .replace(/''(.*?)''/g, '<em>$1</em>');
+
+    // 处理段落
+    text = text.replace(/\n\n/g, '</p><p>');
+    return '<p>' + text + '</p>';
+}
+
+// 编辑器功能
+let currentArticleId = null;
+
+function showEditor(articleId) {
+    showPage('edit-page');
+    currentArticleId = articleId;
+    
+    if(articleId) {
+        // 编辑现有文章
+        const article = JSON.parse(localStorage.getItem('article_'+articleId));
+        document.getElementById('editor').value = article.rawContent;
+    } else {
+        // 新建文章
+        document.getElementById('editor').value = '';
+    }
+    updatePreview();
+}
+
+function insertText(before, after = '') {
+    const editor = document.getElementById('editor');
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const text = editor.value;
+    
+    editor.value = text.slice(0, start) + before + 
+                  text.slice(start, end) + after + 
+                  text.slice(end);
+    
+    editor.focus();
+    editor.selectionStart = start + before.length;
+    editor.selectionEnd = end + before.length;
+    updatePreview();
+}
+
+function updatePreview() {
+    const rawContent = document.getElementById('editor').value;
+    document.getElementById('preview').innerHTML = parseWikiCode(rawContent);
+}
+
+function saveArticle() {
+    const rawContent = document.getElementById('editor').value;
+    const article = {
+        id: currentArticleId || Date.now(),
+        title: rawContent.split('\n')[0].replace(/=/g, '').trim(),
+        rawContent: rawContent,
+        htmlContent: parseWikiCode(rawContent),
+        author: localStorage.getItem('currentUser'),
+        timestamp: new Date().toISOString()
+    };
+
+    localStorage.setItem('article_'+article.id, JSON.stringify(article));
+    alert('保存成功');
+    loadContent(); // 刷新内容列表
+    showPage('home');
+}
+
+// 修改内容加载函数
+function loadContent() {
+    const container = document.getElementById('content-container');
+    const articles = [];
+    
+    // 从localStorage加载所有文章
+    for(let i=0; i<localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if(key.startsWith('article_')) {
+            articles.push(JSON.parse(localStorage.getItem(key)));
+        }
+ }
+    
+    container.innerHTML = articles
+        .sort(() => Math.random() - 0.5)
+        .map(article => `
+            <div class="content-card" onclick="showDetail('${article.id}')">
+                <h3>${article.title}</h3>
+                <p>作者：${article.author}</p>
+                ${article.htmlContent(0, 100)}...
+            </div>
+        `).join('');
+}
+
+// 文章详情查看
+function showDetail(articleId) {
+    const article = JSON.parse(localStorage.getItem('article_'+articleId));
+    const content = `
+        <div class="content-card">
+            <h2>${article.title}</h2>
+            <p>作者：${article.author} | 最后更新：${new Date(article.timestamp).toLocaleString()}</p>
+            <div>${article.htmlContent}</div>
+            ${localStorage.getItem('currentUser') === article.author ? 
+              `<button onclick="showEditor('${articleId}')">编辑</button>` : ''}
+        </div>
+    `;
+    
+    // 实现详情展示逻辑（可以新建页面或使用弹窗）
+    document.getElementById('main-content').innerHTML = content;
+}
+</script>
     </style>
 </head>
 <body>
