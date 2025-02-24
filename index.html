@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>XX Wiki</title>
-    <!-- 第三方聊天室 (需替换your-script-id) -->
     <script src="https://cdn.tawk.to/your-script-id/default.js" async></script>
     
+
     <style>
         /* 基础样式 */
         :root {
@@ -184,6 +184,7 @@
         </div>
         <input type="text" id="search-bar" placeholder="搜索内容...">
         <div id="user-section">
+            <!-- 登录状态显示 -->
             <button class="nav-button" onclick="showPage('login')">登录</button>
             <button class="nav-button" onclick="showPage('register')">注册</button>
         </div>
@@ -199,149 +200,119 @@
     </footer>
 
     <script>
-        // 用户认证系统
-        const Auth = {
-            // 显示登录页
-            showLogin: () => {
-                document.getElementById('main-content').innerHTML = `
-                    <div class="auth-page">
-                        <div class="auth-form">
-                            <h2>用户登录</h2>
-                            <input type="text" id="login-username" placeholder="用户名">
-                            <input type="password" id="login-password" placeholder="密码">
-                            <button onclick="Auth.handleLogin()">登录</button>
-                            <div class="switch-auth">
-                                没有账号？<a onclick="showPage('register')">立即注册</a>
-                                <br>
-                                <a onclick="showPage('reset-password')">忘记密码？</a>
-                            </div>
-                        </div>
-                    </div>`;
-            },
-
-            // 显示注册页
-            showRegister: () => {
-                document.getElementById('main-content').innerHTML = `
-                    <div class="auth-page">
-                        <div class="auth-form">
-                            <h2>用户注册</h2>
-                            <input type="text" id="reg-username" placeholder="用户名">
-                            <input type="password" id="reg-password" placeholder="密码">
-                            <input type="password" id="reg-confirm" placeholder="确认密码">
-                            <button onclick="Auth.handleRegister()">注册</button>
-                            <div class="switch-auth">
-                                已有账号？<a onclick="showPage('login')">立即登录</a>
-                            </div>
-                        </div>
-                    </div>`;
-            },
-
-            // 显示重置密码页
-            showResetPassword: () => {
-                document.getElementById('main-content').innerHTML = `
-                    <div class="auth-page">
-                        <div class="reset-form">
-                            <h2>重置密码</h2>
-                            <div class="reset-steps active" id="step1">
-                                <input type="text" id="reset-username" placeholder="用户名">
-                                <button onclick="Auth.verifyUser()">下一步</button>
-                                <div class="switch-auth">
-                                    <a onclick="showPage('login')">返回登录</a>
-                                </div>
-                            </div>
-                            <div class="reset-steps" id="step2">
-                                <input type="password" id="new-password" placeholder="新密码">
-                                <input type="password" id="confirm-password" placeholder="确认密码">
-                                <button onclick="Auth.handleReset()">提交</button>
-                                <div class="switch-auth">
-                                    <a onclick="document.getElementById('step2').classList.remove('active'); 
-                                              document.getElementById('step1').classList.add('active')">上一步</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-            },
-
-            // 处理登录
-            handleLogin: () => {
-                const username = document.getElementById('login-username').value;
-                const password = document.getElementById('login-password').value;
-                const user = JSON.parse(localStorage.getItem(`user_${username}`));
-
-                if (user && user.password === password) {
-                    localStorage.setItem('currentUser', username);
-                    UI.updateUserSection();
-                    showPage('home');
-                } else {
-                    alert('用户名或密码错误');
-                }
-            },
-
-            // 处理注册
-            handleRegister: () => {
-                const username = document.getElementById('reg-username').value;
-                const password = document.getElementById('reg-password').value;
-                const confirm = document.getElementById('reg-confirm').value;
-
-                if (password !== confirm) {
-                    alert('两次密码输入不一致');
-                    return;
-                }
-
-                if (localStorage.getItem(`user_${username}`)) {
-                    alert('用户名已存在');
-                    return;
-                }
-
-                localStorage.setItem(`user_${username}`, JSON.stringify({ password }));
-                alert('注册成功');
-                showPage('login');
-            },
-
-            // 处理密码重置
-            handleReset: () => {
-                const username = document.getElementById('reset-username').value;
-                const newPass = document.getElementById('new-password').value;
-                const confirmPass = document.getElementById('confirm-password').value;
-
-                if (newPass !== confirmPass) {
-                    alert('两次密码输入不一致');
-                    return;
-                }
-
-                const user = JSON.parse(localStorage.getItem(`user_${username}`));
-                user.password = newPass;
-                localStorage.setItem(`user_${username}`, JSON.stringify(user));
-                alert('密码重置成功');
-                showPage('login');
-            },
-
-            // 退出登录
-            logout: () => {
-                localStorage.removeItem('currentUser');
-                UI.updateUserSection();
-                showPage('home');
+        // ========== 用户系统 ==========
+        const UserSystem = {
+            // 获取当前用户
+            getCurrent: () => localStorage.getItem('currentUser'),
+            
+            // 获取用户数据
+            getData: (username) => JSON.parse(localStorage.getItem(`user_${username}`)),
+            
+            // 更新用户数据
+            update: (username, data) => {
+                const userData = UserSystem.getData(username) || {};
+                localStorage.setItem(`user_${username}`, JSON.stringify({...userData, ...data}));
             }
         };
 
-        // 用户界面管理
-        const UI = {
-            updateUserSection: () => {
-                const userSection = document.getElementById('user-section');
-                const currentUser = localStorage.getItem('currentUser');
-                
-                if (currentUser) {
-                    userSection.innerHTML = `
-                        <span class="nav-button">${currentUser}</span>
-                        <button class="nav-button" onclick="Auth.logout()">退出</button>`;
-                } else {
+        // ========== 文章系统 ==========
+        const ArticleSystem = {
+            // 获取所有文章
+            getAll: () => {
+                return Object.keys(localStorage)
+                    .filter(key => key.startsWith('article_'))
+                    .map(key => JSON.parse(localStorage.getItem(key)));
+            },
+            
+            // 删除文章
+            delete: (articleId) => {
+                localStorage.removeItem(`article_${articleId}`);
+            }
+        };
+
+        // ========== 页面功能 ==========
+        // 显示用户主页
+        function showUserPage() {
+            const username = UserSystem.getCurrent();
+            const userData = UserSystem.getData(username);
+            
+            // 构建用户页面内容
+            const content = `
+                <div class="user-profile">
+                    <h2>${username} 的主页</h2>
+                    <p>等级：Lv.${userData.level || 1}</p>
+                    
+                    <div class="bio-section">
+                        <h3>个人介绍</h3>
+                        <p>${userData.bio || '暂无介绍'}</p>
+                        <button onclick="editBio()">编辑介绍</button>
+
+// 编辑个人介绍
+function editBio() {
+    const currentBio = UserSystem.getData(UserSystem.getCurrent()).bio || '';
+    const newBio = prompt('请输入新的个人介绍：', currentBio);
+    if(newBio) {
+        UserSystem.update(UserSystem.getCurrent(), { bio: newBio });
+        showUserPage(); // 刷新显示
+    }
+}
+
+// 获取文章标题
+function getArticleTitle(articleId) {
+    return JSON.parse(localStorage.getItem(`article_${articleId}`))?.title || '未知标题';
+}
+                    </div>
+                    
+                    <div class="my-articles">
+                        <h3>我的投稿</h3>
+                        ${userData.articles?.map(id => `
+                            <div class="article-card">
+                                <h4>${getArticleTitle(id)}</h4>
+                                <button onclick="deleteArticle('${id}')">删除</button>
+                            </div>
+                        `).join('') || '<p>暂无投稿</p>'}
+                    </div>
+                </div>`;
+            
+            document.getElementById('main-content').innerHTML = content;
+        }
+
+        // ========== 核心功能 ==========
+        // 搜索功能（已修复）
+        document.getElementById('search-bar').addEventListener('input', function(e) {
+            const keyword = e.target.value.toLowerCase();
+            document.querySelectorAll('.content-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(keyword) ? 'block' : 'none';
+            });
+        });
+
+        // 删除文章功能
+        function deleteArticle(articleId) {
+            if(confirm('确定要删除这篇文章吗？')) {
+                ArticleSystem.delete(articleId);
+                showUserPage(); // 刷新用户页面
+            }
+        }
+
+        // ========== 初始化 ==========
+        window.onload = () => {
+            // 检查登录状态
+            if(UserSystem.getCurrent()) {
+                document.getElementById('user-section').innerHTML = `
+                    <button class="nav-button" onclick="showUserPage()">${UserSystem.getCurrent()}</button>
+                    <button class="nav-button" onclick="logout()">退出</button>`;
+            } else {
                     userSection.innerHTML = `
                         <button class="nav-button" onclick="showPage('login')">登录</button>
                         <button class="nav-button" onclick="showPage('register')">注册</button>`;
                 }
             }
         };
-
+            
+            // 加载首页内容
+            showPage('home');
+        };
         // 页面导航系统
         function showPage(page) {
             const pages = {
