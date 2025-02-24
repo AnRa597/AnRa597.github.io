@@ -198,6 +198,82 @@
         .social-links a:hover {
             color: #ddd;
         }
+        /* 新增iOS兼容样式 */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        .container {
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 重构侧栏系统 */
+        .sidebar-container {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            bottom: 0;
+            width: 80%;
+            max-width: 300px;
+            background: #34495e;
+            z-index: 1000;
+            transition: transform 0.3s;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .sidebar-container.active {
+            transform: translateX(100%);
+        }
+
+        /* 新增遮罩层 */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        /* 优化顶栏定位 */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 800;
+        }
+
+        /* 重构主内容区 */
+        .main-wrapper {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 修复页脚定位 */
+        .footer {
+            position: sticky;
+            bottom: 0;
+            z-index: 800;
+        }
+
+        @media (min-width: 769px) {
+            .sidebar-container {
+                position: static;
+                width: 250px;
+                transform: none !important;
+            }
+            
+            .main-wrapper {
+                margin-left: 250px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -286,6 +362,67 @@
                 mainContent.classList.remove('active');
             }
         });
+        // 增强iOS触摸处理
+        let touchStartX = 0;
+        const TOUCH_THRESHOLD = 30;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const deltaX = touchEndX - touchStartX;
+
+            if (Math.abs(deltaX) > TOUCH_THRESHOLD) {
+                if (deltaX > 0 && !sidebar.classList.contains('active')) {
+                    toggleSidebar();
+                } else if (deltaX < 0 && sidebar.classList.contains('active')) {
+                    toggleSidebar();
+                }
+            }
+        });
+
+        // 改进侧栏切换逻辑
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar-container');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
+            
+            // 锁定背景滚动
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // 点击遮罩层关闭
+        document.querySelector('.sidebar-overlay').addEventListener('click', toggleSidebar);
     </script>
+    @supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
+}
+.container {
+    min-height: -webkit-fill-available;
+}
+    .sidebar-container {
+    -webkit-overflow-scrolling: touch; /* 启用弹性滚动 */
+    width: 80%; /* 更符合iOS设计规范 */
+    max-width: 300px;
+}
+    document.addEventListener('touchstart', ...);
+document.addEventListener('touchend', ...);
+    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+    .header, .footer {
+    position: sticky;
+    z-index: 800;
+}
+.sidebar-container {
+    z-index: 1000;
+}
+.sidebar-overlay {
+    z-index: 999;
+}
 </body>
 </html>
